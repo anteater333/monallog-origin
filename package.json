@@ -1,0 +1,14 @@
+{
+  "name": "monallog",
+  "version": "0.0.0",
+  "description": "monallog, tiny social media.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anteater333",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "npm": "^6.9.0"
+  }
+}
