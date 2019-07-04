@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
     <head>
-        <meta charset="utf=8" />
+        <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
+        <link rel="stylesheet" href="asset/css/style.css" type="text/css" media="all" />
         <link rel="icon" type="image/x-icon" href="asset/img/favicon.ico" />
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
         <title>monallog</title>
         <meta name="decription" content="monallog, 집단적 독백" />
@@ -18,6 +21,45 @@
         <meta property="og:url" content="https://monallog.com" />
     </head>
     <body>
-        <h1>Hello</h1>
+        <div>
+            <header class="header">
+                <div class="smallLogo">
+                    <a href="index.html">
+                        <img src="asset/img/small-logo.png"
+                            srcset="asset/img/small-logo@2x.png 2x,
+                                    asset/img/small-logo@3x.png 3x"
+                            class="smallLogoImg">
+                    </a>
+                </div>
+                <div class="identification">
+                    <a class="signButton signUp" href="index.html">SIGN UP</a>
+                    <a class="signButton signIn" href="index.html">SIGN IN</a>
+                </div>
+            </header>
+
+            <section class="mainSection">
+                <div class="overlay"></div>
+                <div class="background"></div>
+                <div class="content">
+                    <div class="mainLogo">
+                        <a href="index.html">
+                            <img src="asset/img/main-logo.png"
+                            srcset="asset/img/main-logo@2x.png 2x,
+                                    asset/img/main-logo@3x.png 3x"
+                            class="mainLogoImg">
+                        </a>
+                    </div>
+                    <div class="search">
+                        <span class="textBar">
+                            <input type="text" class="inputText" placeholder="FIND YOUR CHANNEL">
+                        </span>
+                    </div>
+                </div>
+            </section>
+            
+            <footer>
+                <span class="footerText">monallog, 집단적 독백</span>
+            </footer>
+        </div>
     </body>
 </html>
