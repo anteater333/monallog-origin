@@ -34,23 +34,25 @@ body {
     display: flex;
 }
 
-.smallLogo, .identification {
+.small-logo, .identification {
     flex: none;
 
     margin-top: auto;
     margin-bottom: auto;
 }
 
-.smallLogo {
+.small-logo {
     margin-left: 2vw;
 }
 
 .identification {
     margin-left: auto;
     margin-right: 1vw;
+
+    opacity: 0.5;
 }
 
-.signButton {
+.sign-button {
     display: block;
     width: 80px;
     height: 30px;
@@ -70,22 +72,47 @@ body {
     text-decoration: none;
     line-height: 30px;
 
-    opacity: 0.5;
-
     float: left;
 }
 
-.signUp {
+.profile {
+    display: block;
+    
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+
+    margin-left: 5px;
+
+    border: medium;
+    border-style: solid;
+    border-color: var(--white);
+
+    background-color: var(--white);
+
+    overflow: hidden;
+}
+
+.profile-img {
+    display: inline-block;
+    
+    height: 100%;
+    width: 100%;
+
+    margin: auto;
+}
+
+.sign-up {
     background-color: var(--white);
     color: var(--black);
 }
 
-.signIn {
+.sign-in {
     background-color: var(--black);
     color: var(--white);
 }
 
-.mainSection {
+.main-section {
     position: relative;
     height: 90vh;
     width: inherit;
@@ -131,7 +158,7 @@ body {
     z-index: 10;
 }
 
-.mainLogo {
+.main-logo {
     margin-bottom: 5vh;
     opacity: 0.75;
 }
@@ -141,7 +168,7 @@ body {
     opacity: 0.75;
 }
 
-.search .textBar {
+.search .text-bar {
     display: inline-block;
     width: 457px;
     height: 42px;
@@ -152,7 +179,7 @@ body {
     opacity: 0.75;
 }
 
-.search .inputText {
+.search .input-text {
     margin: 8px;
     width: 90%;
     outline: 0;
@@ -164,7 +191,7 @@ body {
     color: var(--white);
 }
 
-input.inputText::placeholder {
+input.input-text::placeholder {
     opacity: 0.75;
     font-family: Relancer;
 }
@@ -177,7 +204,7 @@ footer {
     background-color: var(--black);
 }
 
-.footerText {
+.footer-text {
     font-size: 8px;
     opacity: 0.75;
     font-family: NanumBarunGothic;
