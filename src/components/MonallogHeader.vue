@@ -27,7 +27,7 @@ export default {
     data: 
         function() {
             return { 
-                auth: true
+                auth: false
         }
     },
     computed: {

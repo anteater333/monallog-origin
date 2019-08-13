@@ -112,13 +112,13 @@ body {
     color: var(--white);
 }
 
-.main-section {
+.main-view {
     position: relative;
     height: 90vh;
     width: inherit;
 }
 
-.overlay {
+.background-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -132,7 +132,7 @@ body {
     opacity: 0.5;
 }
 
-.background {
+.background-image {
     position: absolute;
     top: 0;
     left: 0;
@@ -141,7 +141,6 @@ body {
 
     z-index: 0;
 
-    background-image: url(../img/background.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -149,7 +148,7 @@ body {
     text-transform: uppercase;
 }
 
-.content {
+.home-content {
     position: absolute;
     top: 35vh;
     
