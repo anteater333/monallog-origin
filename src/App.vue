@@ -1,13 +1,14 @@
 <template>
   <div id="app">
     <monallog-header />
-    <section class="main-view">
+    <section class="main-view" >
       <global-background :is-focused="bgFocus" />
       <router-view />
     </section>
     <monallog-footer />
   </div>
 </template>
+
 <script>
 import MonHeader from "@/components/MonallogHeader"
 import MonFooter from "@/components/MonallogFooter"
@@ -28,3 +29,22 @@ export default {
   }
 }
 </script>
+
+<style>
+:root {
+  /* Color palette */
+  --black: #000000;
+  --white: #ffffff;
+  --background: #161618;
+
+  /* Default font */
+  font-family: Relancer;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  text-align: center;
+  color: var(--white);
+}
+</style>

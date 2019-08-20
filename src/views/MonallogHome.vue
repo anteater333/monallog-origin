@@ -20,4 +20,33 @@
 export default {
     name: 'MonallogHome'
 }
+</script><style scoped>
 </script>
+
+<style scoped>
+.home-content {
+    opacity: 0.75;
+}
+
+.text-bar {
+    border: 4px solid var(--white);
+    border-radius: 42px;
+
+    opacity: 0.75;
+}
+
+.text-bar .input-text {
+    outline: 0;
+    border: 0;
+    background-color: transparent;
+
+    font-family: NanumBarunGothic;
+    font-size: 24px;
+    color: var(--white);
+}
+
+input.input-text::placeholder {
+    opacity: 0.75;
+    font-family: Relancer;
+}
+</style>
