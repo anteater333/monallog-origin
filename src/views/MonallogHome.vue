@@ -8,19 +8,40 @@
                 class="main-logo-img">
             </div>
             <div class="search">
-                <span class="text-bar">
-                    <input type="text" class="input-text" placeholder="FIND YOUR CHANNEL">
-                </span>
+                <m-text-bar 
+                    class="search-text"
+                    :catch-phrase="greeting"
+                    v-model="searchKey"
+                    @enter="searchChan" />
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import MTextBar from "@/components/MTextBar.vue"
+
 export default {
-    name: 'MonallogHome'
+    name: 'MonallogHome', 
+    components: {
+        'm-text-bar': MTextBar
+    },
+    data() {
+        return {
+            searchKey: "", 
+        }
+    }, 
+    computed: {
+        greeting: function() {
+            return "Find Your Channel."
+        }
+    },
+    methods: {
+        searchChan: function() { // 백엔드 완성 시 검색기능으로 변경해야함.
+            this.$router.push({ name: 'channel', params: { chId: this.searchKey }})
+        }
+    }
 }
-</script><style scoped>
 </script>
 
 <style scoped>
@@ -28,25 +49,10 @@ export default {
     opacity: 0.75;
 }
 
-.text-bar {
-    border: 4px solid var(--white);
-    border-radius: 42px;
+.search {
+    width: 457px;
+    height: 42px;
 
     opacity: 0.75;
-}
-
-.text-bar .input-text {
-    outline: 0;
-    border: 0;
-    background-color: transparent;
-
-    font-family: NanumBarunGothic;
-    font-size: 24px;
-    color: var(--white);
-}
-
-input.input-text::placeholder {
-    opacity: 0.75;
-    font-family: Relancer;
 }
 </style>

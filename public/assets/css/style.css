@@ -77,19 +77,8 @@ body {
 
 .search {
     margin: auto;
-}
-
-.text-bar {
-    display: inline-block;
     width: 457px;
-    height: 42px;
 }
-
-.text-bar .input-text {
-    margin: 8px;
-    width: 90%;
-}
-
 
 /* Footer */
 footer {
