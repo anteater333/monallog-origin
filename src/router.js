@@ -10,7 +10,17 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: () => import(`./views/MonallogHome.vue`)
+      component: () => import(/* webpackChunkName: "home" */`./views/MonallogHome.vue`)
+    },
+    {
+      path: '/ch/:chId',
+      name: 'channel',
+      component: () => import(/* webpackChunkName: "channel" */`./views/MonallogChannel.vue`)
+    },
+    { // temporary routing for development
+      path: '/dev',
+      name: 'dev',
+      component: () => import(`./views/MonallogChannel.vue`)
     },
     /*
     {
