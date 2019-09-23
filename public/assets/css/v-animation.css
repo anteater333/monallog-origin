@@ -1,0 +1,30 @@
+/* vue transition */
+.fade-spacing-enter-active, .fade-spacing-leave-active {
+    transition: .5s;
+}
+
+.fade-spacing-enter, .fade-spacing-leave-to {
+    opacity: 0;
+    letter-spacing: -5px;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: 0.7s;
+}
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+}
+
+
+/* keyframes */
+@keyframes line-right-left {
+    0% { 
+        right: 0%;
+        transform: translateX(100%);
+        visibility: visible;
+    }
+    100% {
+        right: 100%;
+    }
+}

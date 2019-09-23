@@ -50,8 +50,10 @@ export default {
 }
 
 .search {
-    width: 457px;
+    max-width: 457px;
     height: 42px;
+
+    padding: 0px 20px;
 
     opacity: 0.75;
 }

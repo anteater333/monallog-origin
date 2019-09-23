@@ -3,7 +3,9 @@
     <monallog-header />
     <section class="main-view" >
       <global-background :is-focused="bgFocus" />
-      <router-view />
+      <transition  name="fade">
+        <router-view />
+      </transition>
     </section>
     <monallog-footer />
   </div>
@@ -38,7 +40,7 @@ export default {
   --background: #161618;
 
   /* Default font */
-  font-family: Relancer;
+  font-family: NanumBarunGothic;
   font-size: 12px;
   font-weight: normal;
   font-style: normal;

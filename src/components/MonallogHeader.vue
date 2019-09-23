@@ -1,13 +1,11 @@
 <template>
     <header class="header">
-        <div class="small-logo">
-            <router-link to="/">
-                <img src="../assets/small-logo.png"
-                    srcset="../assets/small-logo@2x.png 2x,
-                    srcset=../assets/small-logo@3x.png 3x"
-                    class="small-logo-img">
-            </router-link>
-        </div>
+        <router-link class="small-logo" to="/">
+            <img src="../assets/small-logo.png"
+                srcset="../assets/small-logo@2x.png 2x,
+                srcset=../assets/small-logo@3x.png 3x"
+                class="small-logo-img">
+        </router-link>
         <div v-if="!isAuthenticated" class="identification">
             <!-- placeholding -->
             <router-link class="sign-button sign-up" to="/">SIGN UP</router-link>
@@ -49,12 +47,16 @@ export default {
     background-color: var(--black);
 }
 
+.small-logo {
+    border: 0;
+    outline: 0;
+}
+
 .identification {
     opacity: 0.5;
 }
 
-.sign-button {    
-    width: 80px;
+.sign-button {
     height: 30px;
 
     border: medium;
@@ -62,12 +64,25 @@ export default {
     border-color: var(--white);
     border-radius: 7px;
 
+    padding: 0.1em 0.3em;
+
     font-size: 20px;
-    font-weight: bold;
 
     text-align: center;
     text-decoration: none;
-    line-height: 30px;
+    line-height: 1.5;
+
+    font-family: Relancer;
+
+    background-color: var(--black);
+    color: var(--white);
+
+    transition: .5s;
+}
+
+.sign-button:hover {
+    background-color: var(--white);
+    color: var(--black);
 }
 
 .profile {
@@ -90,15 +105,5 @@ export default {
 
     height: 100%;
     width: 100%;
-}
-
-.sign-up {
-    background-color: var(--white);
-    color: var(--black);
-}
-
-.sign-in {
-    background-color: var(--black);
-    color: var(--white);
 }
 </style>
