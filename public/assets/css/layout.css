@@ -118,7 +118,6 @@ footer {
 }
 
 .line-area .m-line {
-    position: absolute;
     z-index: 5;
 }
 

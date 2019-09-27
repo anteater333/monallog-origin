@@ -1,0 +1,186 @@
+<template>
+    <div class="line-area">
+        <transition name="fade">
+            <p class="channel-notice"
+                v-show="hasNotice">
+                {{ serverNotice.msgType + ": " + serverNotice.msg }}
+            </p>
+        </transition>
+        <!-- Style 01 - "난장판" -->
+        <m-line v-for="line in curLines"
+            :key="line.id"
+            v-bind="line"
+            :mode="lineMode"
+            :style="lineStyle"
+            @line-timeout="dequeue"
+            class="floating-line"
+        />
+
+        <!-- Style 02 - "10차로 도로" -->
+        <!--
+        <div v-for="index in 10"
+            :key="index"
+            class="line-way"
+        >
+            <m-line
+                v-if="curLines.filter((line) => {return line.lineWay == index})[0]"
+                v-bind="curLines.filter((line) => {return line.lineWay == index})[0]"
+                :mode="lineMode"
+                :style="lineStyle"
+                @line-timeout="dequeue"
+                class="floating-line"
+            />
+        </div>
+        -->
+
+    </div>
+</template>
+
+<script>
+import MLine from "@/components/MLine.vue"
+import { setTimeout, clearTimeout } from 'timers';
+
+export default {
+    name: 'ListArea',
+    components: {
+        'm-line': MLine
+    },
+    props: {
+    },
+    data() {
+        return {
+            serverNotice: Object,
+            hasNotice: false,
+            curLines: [ // 현재 표시중인 라인들
+                /*
+                {
+                    id: 0,
+                    text: "This is an example.",
+                    actor: "anonymous",
+                    date: "yyyy-MM-dd",
+                    timer: 10000, // ms
+                    lineWay: 0, // 0 : No line-way mode, 1 ~ 10 : line-way number
+                }
+                */
+            ],
+
+            // tmp data
+            lineId: 0,
+            lineDuration: 10000, // ms
+            lineTimer: Object,
+            lineMode: 1,
+        }
+    },
+    computed: {
+        lineStyle: function () {
+            return {
+                animationDuration: this.lineDuration + `ms`,
+            }
+        }
+    },
+    watch: {
+        serverNotice: function(newVal) {
+            this.hasNotice = true;
+            clearTimeout(this.lineTimer);
+            this.lineTimer = setTimeout(() => {
+                this.hasNotice = false;
+            }, 5000);
+        }
+    },
+    created() {
+        this.lineTimer = setTimeout(() => { }, 10);
+        this.hasNotice = true;
+        this.serverNotice = {
+            msgCode: 0,
+            msgType: "welcome",
+            msg: "안녕하세요!"
+        };
+    },
+    methods: {
+        enqueue: function(input) {
+            let line = {
+                id: this.lineId,
+                text: input,
+                actor: "아무개",
+                date: getFormatDate(new Date()),
+                timer: this.lineDuration,
+                lineWay: (this.lineId) % 10 + 1
+            }
+            
+            this.curLines.push(line);
+            this.lineId++;
+        },
+        dequeue: function() {
+            let rtLine = this.curLines.shift();
+            if (rtLine) {
+                    this.serverNotice = {
+                    msgCode: 9,
+                    msgType: "timeout",
+                    msg: `라인 삭제 "`+ rtLine.text + `"`
+                };
+            }
+            return rtLine;
+        }
+    }
+}
+
+const getFormatDate = (date) => {
+    let coder = (val) => {
+        return val >= 10 ? val : '0' + val;
+    }
+
+    let year = date.getFullYear();
+    let month = coder((1 + date.getMonth()));
+    let day = coder(date.getDate());
+    let hour = coder(date.getHours());
+    let minute = coder(date.getMinutes());
+    let second = coder(date.getSeconds());
+    return year + '-' + month + '-' + day 
+        + ' ' + hour + ':' + minute + ':' + second;
+}
+</script>
+
+<style>
+.line-area {
+    overflow: hidden;
+}
+
+.line-area .channel-notice {
+    white-space: nowrap;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    color: yellow;
+    text-align: left;
+
+    transition: 0.3s;
+    
+    width: calc(100% - 2em);
+
+    margin: 0px;
+    padding: 0.3em 1em;
+}
+
+.line-area .channel-notice:hover {
+    background-color: transparent;
+    opacity: 0.3;
+}
+
+.line-area .line-container {
+    height: 100%;
+}
+
+.line-area .floating-line {
+    visibility: hidden;
+
+    animation-name: line-right-left;
+    animation-timing-function: linear;
+
+    margin: 0px;
+}
+
+.line-area .line-way {
+    position: relative;
+    overflow: hidden;
+    height: 10%;
+}
+</style>
