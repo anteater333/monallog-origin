@@ -1,50 +1,46 @@
-const express = require('express');
-const app = express();
+const app = require('express')();
+const server = require('http').createServer(app);
+
 const port = 8081;
 
 const bodyParser = require('body-parser');
 
 const database = require('./database');
 
+// set middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-    return res.send(`Welcome to monallog API Server!\n`);
-});
+// API routing
+app.use('/', require('./api'));
 
-app.get('/echo/:name', (req, res) => {
-    return res.json({
-        description: "Test page.",
-        message: req.params.name
-    })
-});
+// set database connection
+database.connect();
 
-app.use('/channels', require('./api/channel'));
+// set socket.io server
+require('./socket')(server);
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Example app listening on ${port} port!`)
     
-    database.init();
-    
-    let testLine = new database.models.lines({name: 'jokes', text: '열심히 공부중'});
-    testLine.save((err) => {
-        if(err) {
-            console.log('error 발생');
-            console.log('-------------------------------');
-            console.error(err);
-            console.log('-------------------------------');
-        }
-        else {
-            console.log("테스트용 데이터 추가됨 : " + testLine.collection.collectionName);
-        }
+    // let testLine = new database.models.Lines({name: 'jokes', text: '열심히 공부중'});
+    // testLine.save((err) => {
+    //     if(err) {
+    //         console.log('error 발생');
+    //         console.log('-------------------------------');
+    //         console.error(err);
+    //         console.log('-------------------------------');
+    //     }
+    //     else {
+    //         console.log("테스트용 데이터 추가됨 : " + testLine.collection.collectionName);
+    //     }
 
-        database.models.channels.findAll((err, channels) => {
-            if(err) console.log(err);
-            else if(channels.length === 0) console.log('no channels here');
-            else console.log(channels);
-        });
-    });
+    //     database.models.Channels.findAll((err, channels) => {
+    //         if(err) console.log(err);
+    //         else if(channels.length === 0) console.log('no channels here');
+    //         else console.log(channels);
+    //     });
+    // });
 });
 
 module.exports = app;
