@@ -6,13 +6,14 @@ const models = require('./model');
 
 let database = {};
 
-database.init = () => {
-    console.log('\ndatabase.init 호출. 나중에 지우세요오.\n');
-    connect();
-}
-
-function connect() {
+database.connect = () => {
     mongoose.Promise = global.Promise;
+    
+    mongoose.set('useNewUrlParser', true);
+    mongoose.set('useFindAndModify', false);
+    mongoose.set('useCreateIndex', true);
+    mongoose.set('useUnifiedTopology', true);
+
     mongoose.connect('mongodb://localhost:27017/monallogDB', {useNewUrlParser: true});
     const db = mongoose.connection;
 
@@ -27,6 +28,8 @@ function connect() {
     db.on('error', (err) =>{
         console.log(err);
     });
+
+    console.log('database 연결 및 이벤트 리스너 등록.\n');
 }
 
 database.models = models;

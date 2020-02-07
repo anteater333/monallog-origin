@@ -1,5 +1,5 @@
 
 module.exports = {
-    channels: require('./channels'),
-    lines: require('./lines'),
+    Channels: require('./channels'),
+    Lines: require('./lines'),
 }
