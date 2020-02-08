@@ -47,18 +47,18 @@ export default {
   },
   created: function () {
     switch (this.mode) {
-    case 1:
-      this.height = {
-        position: 'absolute',
-        top: Math.random() * 90 + `%`
-      }
-      break
-    case 2:
-      this.height = {
-        position: 'relative',
-        top: 0
-      }
-      break
+      case 1:
+        this.height = {
+          position: 'absolute',
+          top: Math.random() * 90 + `%`
+        }
+        break
+      case 2:
+        this.height = {
+          position: 'relative',
+          top: 0
+        }
+        break
     }
   },
   mounted: function () {
