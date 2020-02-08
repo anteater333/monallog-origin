@@ -1,6 +1,6 @@
 <template>
     <div class="monallog-channel">
-        <line-area />
+        <line-area ref="lineArea" />
         <div class="post-line">
             <m-text-bar
                 class="line-text"
@@ -45,10 +45,34 @@ export default {
         'line-area': LineArea,
         'm-text-bar': MTextBar
     },
+    sockets: {
+        connect: function () {
+            this.$refs.lineArea.pushNotice({
+                msgCode: 1,
+                msgType: "notice",
+                msg: "socketio 서버 연결됨.",
+                timeout: 3000
+            });
+            this.isSocketOn = true;
+        },
+        disconnect: function () {
+            this.$refs.lineArea.pushNotice({
+                msgCode: 2,
+                msgType: "error",
+                msg: "socketio 서버 연결 끊어짐.",
+                timeout: 5000
+            });
+            this.isSocketOn = false;
+        },
+        line: function(data) {
+            this.$refs.lineArea.enqueue(data.line);
+        }
+    },
     data() {
         return {
             line: "",
-            hasCursor: false
+            hasCursor: false,
+            isSocketOn: false,
         }
     }, 
     computed: {
@@ -70,10 +94,16 @@ export default {
     },
     methods: {
         postLine: function() {
-            if (this.line)
-                this.$children[0].enqueue(this.line);
-            else
+            if (this.line && this.isSocketOn) // 정상적으로 이벤트 발생
+                this.$socket.emit('line', {
+                    line: this.line,
+                    channel: "dev", // placeholding
+                    author: "아무개", // also placeholoding
+                });
+            else if (!this.line) // 텍스트 없음
                 alert("내용을 입력해주세요.");
+            else if (!this.isSocketOn) // socketio 연결 안됨
+                alert("채팅 서버가 연결되지 않았습니다.\n ... 로 문의해 주세요.");
             this.line = "";
         },
     }
@@ -85,9 +115,11 @@ export default {
     opacity: 0.75;
 }
 
+/*
 .line-text {
     
 }
+*/
 
 .line-button {
     display: flex;
