@@ -21,7 +21,7 @@ export default new Router({
       path: '/dev',
       name: 'dev',
       component: () => import(`./views/MonallogChannel.vue`)
-    },
+    }
     /*
     {
       path: '/about',

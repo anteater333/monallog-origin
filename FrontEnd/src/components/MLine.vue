@@ -6,13 +6,13 @@
 </template>
 
 <script>
-import { setTimeout } from 'timers';
+import { setTimeout } from 'timers'
 export default {
-    name: 'MLine',
-    props: {
-        /* v-bind:line */
-        
-        /** EXAMPLE *************************
+  name: 'MLine',
+  props: {
+    /* v-bind:line */
+
+    /** EXAMPLE *************************
         {
             id: 0,
             text: "This is an example.",
@@ -23,58 +23,58 @@ export default {
         }
         ************************************/
 
-        id: Number,
-        text: String,
-        actor: String,  // Object
-        date: String,
-        timer: Number,
-        lineWay: {
-            type: Number,
-            default: 0,
-            validator: value => { return 0 <= value && value <= 10; }
-        },
+    id: Number,
+    text: String,
+    actor: String, // Object
+    date: String,
+    timer: Number,
+    lineWay: {
+      type: Number,
+      default: 0,
+      validator: value => { return value >= 0 && value <= 10 }
+    },
 
-        /* 개별 bind */
-        mode: Number,
-    },
-    data: function() {
-        return {
-            height: null
-        }
-    },
-    computed: {
-
-    },
-    created: function() {
-        switch (this.mode) {
-            case 1:
-                this.height = {
-                    position: "absolute",
-                    top: Math.random() * 90 + `%`
-                }
-                break;
-            case 2:
-                this.height = {
-                    position: "relative",
-                    top: 0
-                }
-                break;
-        }
-    },
-    mounted: function() {
-        setTimeout(() => {
-            this.$emit('line-timeout');
-        }, this.timer);
-    },
-    methods: {
-
+    /* 개별 bind */
+    mode: Number
+  },
+  data: function () {
+    return {
+      height: null
     }
+  },
+  computed: {
+
+  },
+  created: function () {
+    switch (this.mode) {
+    case 1:
+      this.height = {
+        position: 'absolute',
+        top: Math.random() * 90 + `%`
+      }
+      break
+    case 2:
+      this.height = {
+        position: 'relative',
+        top: 0
+      }
+      break
+    }
+  },
+  mounted: function () {
+    setTimeout(() => {
+      this.$emit('line-timeout')
+    }, this.timer)
+  },
+  methods: {
+
+  }
 }
 
 const getRandomInt = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min + 1)) + min
 }
 </script>
 

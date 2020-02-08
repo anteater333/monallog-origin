@@ -6,25 +6,25 @@
 </template>
 <script>
 export default {
-    name: 'global-background', 
-    props: {
-        'isFocused': {
-            type: Boolean,
-            default: false
-        }
-    },
-    data() {
-        return {
-            bgImgUrl: 'assets/img/background.png', // placeholding
-        }
-    }, 
-    computed: {
-        styleBgImg() {
-            return {
-                'background-image': `url(${this.bgImgUrl})`
-            }
-        }
+  name: 'global-background',
+  props: {
+    'isFocused': {
+      type: Boolean,
+      default: false
     }
+  },
+  data () {
+    return {
+      bgImgUrl: 'assets/img/background.png' // placeholding
+    }
+  },
+  computed: {
+    styleBgImg () {
+      return {
+        'background-image': `url(${this.bgImgUrl})`
+      }
+    }
+  }
 }
 </script>
 

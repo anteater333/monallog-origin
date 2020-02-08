@@ -16,7 +16,7 @@ Vue.use(new VueSocketIO({
     store,
     actionPrefix: 'SOCKET_',
     mutationPrefix: 'SOCKET_'
-  },
+  }
   // options are optional.
 }))
 
