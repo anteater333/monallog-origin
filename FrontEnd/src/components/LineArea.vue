@@ -3,7 +3,7 @@
         <transition name="fade">
             <p class="channel-notice"
                 v-show="hasNotice">
-                {{ serverNotice.msgType + ": " + serverNotice.msg }}
+                {{ channelNotice.msgType + ": " + channelNotice.msg }}
             </p>
         </transition>
         <!-- Style 01 - "난장판" -->
@@ -49,7 +49,8 @@ export default {
     },
     data() {
         return {
-            serverNotice: Object,
+            notices: [],
+            channelNotice: Object,
             hasNotice: false,
             curLines: [ // 현재 표시중인 라인들
                 /*
@@ -79,30 +80,38 @@ export default {
         }
     },
     watch: {
-        serverNotice: function(newVal) {
-            this.hasNotice = true;
-            clearTimeout(this.lineTimer);
-            this.lineTimer = setTimeout(() => {
-                this.hasNotice = false;
-            }, 5000);
+        notices: {
+            deep: true,
+            handler() {
+                if (this.notices.length > 0) {
+                    this.hasNotice = true;
+                    this.channelNotice = this.notices[0];
+                    clearTimeout(this.lineTimer);
+                    this.lineTimer = setTimeout(() => {
+                        this.notices.shift();
+                    }, this.channelNotice.timeout);
+                } else {
+                    this.hasNotice = false;
+                }
+            }
         }
     },
     created() {
         this.lineTimer = setTimeout(() => { }, 10);
-        this.hasNotice = true;
-        this.serverNotice = {
+        this.pushNotice({
             msgCode: 0,
-            msgType: "welcome",
-            msg: "안녕하세요!"
-        };
+            msgType: "Welcome",
+            msg: "안녕하세요.",
+            timeout: 1000
+        });
     },
     methods: {
         enqueue: function(input) {
-            let line = {
+            let line = {    // 당연히 이게 아니라 객체를 전달해야함...
                 id: this.lineId,
                 text: input,
                 actor: "아무개",
-                date: getFormatDate(new Date()),
+                date: now(),
                 timer: this.lineDuration,
                 lineWay: (this.lineId) % 10 + 1
             }
@@ -113,14 +122,32 @@ export default {
         dequeue: function() {
             let rtLine = this.curLines.shift();
             if (rtLine) {
-                    this.serverNotice = {
+                this.pushNotice({
                     msgCode: 9,
                     msgType: "timeout",
-                    msg: `라인 삭제 "`+ rtLine.text + `"`
-                };
+                    msg: `라인 삭제 "`+ rtLine.text + `"`,
+                    timeout: 1000
+                });
             }
             return rtLine;
-        }
+        },
+        /**
+         * 채널의 안내 메세지 큐에 메세지를 입력합니다.
+         * 메세지는 LineArea 상단에 표시됩니다.  
+         * notice: {
+         *     msgCode: Number,
+         *     msgType: String,
+         *     msg: String,
+         *     timeout: Number(default: 5000),
+         * }
+         */
+        pushNotice: function(notice) {  // push지만 enqueue
+            if (!notice.timeout) {
+                notice.timeout = 5000;
+            }
+            notice.date = now();
+            this.notices.push(notice);
+        },
     }
 }
 
@@ -137,6 +164,10 @@ const getFormatDate = (date) => {
     let second = coder(date.getSeconds());
     return year + '-' + month + '-' + day 
         + ' ' + hour + ':' + minute + ':' + second;
+}
+
+const now = () => {
+    return getFormatDate(new Date());
 }
 </script>
 
