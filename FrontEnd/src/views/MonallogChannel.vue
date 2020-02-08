@@ -36,77 +36,80 @@
 </template>
 
 <script>
-import MTextBar from "@/components/MTextBar.vue"
-import LineArea from "@/components/LineArea.vue"
+import MTextBar from '@/components/MTextBar.vue'
+import LineArea from '@/components/LineArea.vue'
 
 export default {
-    name: 'MonallogChannel',
-    components: {
-        'line-area': LineArea,
-        'm-text-bar': MTextBar
+  name: 'MonallogChannel',
+  components: {
+    'line-area': LineArea,
+    'm-text-bar': MTextBar
+  },
+  sockets: {
+    connect: function () {
+      this.$refs.lineArea.pushNotice({
+        msgCode: 1,
+        msgType: 'notice',
+        msg: 'socketio 서버 연결됨.',
+        timeout: 3000
+      })
+
+      this.$socket.emit('join', { channel: this.$route.params.chId })
+
+      this.isSocketOn = true
     },
-    sockets: {
-        connect: function () {
-            this.$refs.lineArea.pushNotice({
-                msgCode: 1,
-                msgType: "notice",
-                msg: "socketio 서버 연결됨.",
-                timeout: 3000
-            });
-            this.isSocketOn = true;
-        },
-        disconnect: function () {
-            this.$refs.lineArea.pushNotice({
-                msgCode: 2,
-                msgType: "error",
-                msg: "socketio 서버 연결 끊어짐.",
-                timeout: 5000
-            });
-            this.isSocketOn = false;
-        },
-        line: function(data) {
-            this.$refs.lineArea.enqueue(data.line);
-        }
+    disconnect: function () {
+      this.$refs.lineArea.pushNotice({
+        msgCode: 2,
+        msgType: 'error',
+        msg: 'socketio 서버 연결 끊어짐.',
+        timeout: 5000
+      })
+      this.isSocketOn = false
     },
-    data() {
-        return {
-            line: "",
-            hasCursor: false,
-            isSocketOn: false,
-        }
-    }, 
-    computed: {
-        encourage: function() {
-            return "Speak your line."
-        }, 
-        lineCount: function() {
-            return this.line.length;
-        },
-        counterColor: function() {
-            let gray = 200 - this.lineCount*5;
-            return {
-                'color': `rgb(${gray}, ${gray}, ${gray})`
-            }
-        },
-        hasText: function() {
-            return this.lineCount != 0;
-        }
-    },
-    methods: {
-        postLine: function() {
-            if (this.line && this.isSocketOn) // 정상적으로 이벤트 발생
-                this.$socket.emit('line', {
-                    line: this.line,
-                    channel: "dev", // placeholding
-                    author: "아무개", // also placeholoding
-                });
-            else if (!this.line) // 텍스트 없음
-                alert("내용을 입력해주세요.");
-            else if (!this.isSocketOn) // socketio 연결 안됨
-                alert("채팅 서버가 연결되지 않았습니다.\n ... 로 문의해 주세요.");
-            this.line = "";
-        },
+    line: function (data) {
+      this.$refs.lineArea.enqueue(data.line)
     }
+  },
+  data () {
+    return {
+      line: '',
+      hasCursor: false,
+      isSocketOn: false
+    }
+  },
+  computed: {
+    encourage: function () {
+      return 'Speak your line.'
+    },
+    lineCount: function () {
+      return this.line.length
+    },
+    counterColor: function () {
+      let gray = 200 - this.lineCount * 5
+      return {
+        'color': `rgb(${gray}, ${gray}, ${gray})`
+      }
+    },
+    hasText: function () {
+      return this.lineCount != 0
+    }
+  },
+  methods: {
+    postLine: function () {
+      if (this.line && this.isSocketOn) // 정상적으로 이벤트 발생
+      {
+        this.$socket.emit('line', {
+          line: this.line,
+          channel: this.$route.params.chId, // placeholding
+          author: '아무개' // also placeholoding
+        })
+      } else if (!this.line) // 텍스트 없음
+      { alert('내용을 입력해주세요.') } else if (!this.isSocketOn) // socketio 연결 안됨
+      { alert('채팅 서버가 연결되지 않았습니다.\n ... 로 문의해 주세요.') }
+      this.line = ''
+    }
+  }
 }
 </script>
 
@@ -117,7 +120,7 @@ export default {
 
 /*
 .line-text {
-    
+
 }
 */
 

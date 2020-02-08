@@ -22,23 +22,23 @@
 
 <script>
 export default {
-    name: "MonallogHeader",
-    data: 
-        function() {
-            return { 
-                auth: false
-        }
-    },
-    computed: {
-        isAuthenticated: {
-            get: function() {
-                return this.auth
-            },
-            set: function(value) {
-                this.auth = value
-            }
-        }
+  name: 'MonallogHeader',
+  data:
+        function () {
+          return {
+            auth: false
+          }
+        },
+  computed: {
+    isAuthenticated: {
+      get: function () {
+        return this.auth
+      },
+      set: function (value) {
+        this.auth = value
+      }
     }
+  }
 }
 </script>
 
@@ -89,7 +89,7 @@ export default {
     height: 25px;
     width: 25px;
     border-radius: 50%;
-    
+
     border: medium;
     border-style: solid;
     border-color: var(--white);
