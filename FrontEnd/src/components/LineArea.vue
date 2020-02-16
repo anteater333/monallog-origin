@@ -142,9 +142,8 @@ export default {
          * }
          */
     pushNotice: function (notice) { // push지만 enqueue
-      if (!notice.timeout) {
-        notice.timeout = 5000
-      }
+      notice.timeout = notice.timeout ?? 5000
+      
       notice.date = now()
       this.notices.push(notice)
     }

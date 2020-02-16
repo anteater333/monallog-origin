@@ -54,6 +54,10 @@ export default {
         timeout: 3000
       })
 
+      this.$route.params.chId = this.$route.params.chId ?? "dev"
+
+      console.log(this.$route.params.chId)
+
       this.$socket.emit('join', { channel: this.$route.params.chId })
 
       this.isSocketOn = true
@@ -69,6 +73,9 @@ export default {
     },
     line: function (data) {
       this.$refs.lineArea.enqueue(data.line)
+    },
+    news: function (data) {
+
     }
   },
   data () {
@@ -92,21 +99,23 @@ export default {
       }
     },
     hasText: function () {
-      return this.lineCount != 0
+      return this.lineCount !== 0
     }
   },
   methods: {
     postLine: function () {
-      if (this.line && this.isSocketOn) // 정상적으로 이벤트 발생
-      {
+      if (this.line && this.isSocketOn) { // 정상적으로 이벤트 발생
+        console.log(this.$route.params.chId)
         this.$socket.emit('line', {
           line: this.line,
           channel: this.$route.params.chId, // placeholding
           author: '아무개' // also placeholoding
         })
-      } else if (!this.line) // 텍스트 없음
-      { alert('내용을 입력해주세요.') } else if (!this.isSocketOn) // socketio 연결 안됨
-      { alert('채팅 서버가 연결되지 않았습니다.\n ... 로 문의해 주세요.') }
+      } else if (!this.line) { // 텍스트 없음
+        alert('내용을 입력해주세요.');
+      } else if (!this.isSocketOn) { // socketio 연결 안됨
+        alert('채팅 서버가 연결되지 않았습니다.\n ... 로 문의해 주세요.');
+      }
       this.line = ''
     }
   }
