@@ -57,7 +57,11 @@ module.exports = (server) => {
          * }
          */
         socket.on('line', (data) => {
-            socket.to(data.channel).emit('line', {
+            socket.to(data.channel).emit('line', { // broadcast
+                line: data.line,
+                author: data.author
+            });
+            socket.emit('line', {   // myself
                 line: data.line,
                 author: data.author
             });
