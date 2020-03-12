@@ -61,12 +61,31 @@ server.listen(port, () => {
     //     });
     // });
 
-    database.models.Users.find({userName:'anteater01'})
-    .then((docs) => {
+    database.models.Users.find()
+    .then(docs => {
+        console.log('Users---------------');
         if (docs.length === 0) console.log("no such user here");
         else {
-            console.log(docs[0].userName);
+            while (doc = docs.shift()) {
+                console.log(doc.toString());
+            }
         }
+        console.log('------------------');
+    })
+    .catch(err => {
+        console.error(err);
+    });
+
+    database.models.Channels.find()
+    .then(docs => {
+        console.log('channels-------------');
+        if (docs.length === 0) console.log("no channels here yet");
+        else {
+            docs.forEach((doc, idx) => {
+                console.log(idx + " :: "+ doc.toString());
+            });
+        }
+        console.log('------------------');
     })
     .catch(err => {
         console.error(err);
