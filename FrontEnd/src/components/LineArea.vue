@@ -121,14 +121,6 @@ export default {
     },
     dequeue: function () {
       let rtLine = this.curLines.shift()
-      if (rtLine) {
-        this.pushNotice({
-          msgCode: 9,
-          msgType: 'timeout',
-          msg: `라인 삭제 "` + rtLine.text + `"`,
-          timeout: 1000
-        })
-      }
       return rtLine
     },
     /**

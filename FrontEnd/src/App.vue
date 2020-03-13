@@ -33,6 +33,12 @@ export default {
 </script>
 
 <style>
+/* Base css */
+@import 'assets/css/layout.css';
+@import 'assets/css/v-animation.css';
+</style>
+
+<style>
 :root {
   /* Color palette */
   --black: #000000;

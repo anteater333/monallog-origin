@@ -15,7 +15,7 @@ export default {
   },
   data () {
     return {
-      bgImgUrl: 'assets/img/background.png' // placeholding
+      bgImgUrl: '/assets/img/background.png' // placeholding
     }
   },
   computed: {
