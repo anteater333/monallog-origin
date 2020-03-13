@@ -1,72 +1,71 @@
+const models = require('../../database').models;
+
 exports.index = (req, res) => {     // GET /channels
-    return res.json(channels);
+    models.Channels.find()
+    .then(docs => {
+        res.json(docs);
+    })
+    .catch(err => {
+        return res.status(520).json({
+            error : 'Something Broken',
+            msg : err
+        });
+    });
 };
 
 exports.show = (req, res) => {      // GET /channels/:id
-    const id = parseInt(req.params.id, 10); // 문자열 정수화
-    if (!id) {
-        return res.status(400).json({error: 'Incorrect id'});
-    }
-
-    let channel = channels.filter(channel => channel.id === id )[0]
-    if (!channel) {
-        return res.status(404).json({error: 'Not found'});
-    }
-
-    return res.json(channel);
+    models.Channels.find({channelName: req.params.id})
+    .then(docs => {
+        if (docs.length === 0) { // No such channel
+            return res.status(404).json({error: 'No such channel'});
+        }
+        else {
+            return res.json(docs[0]);
+        }
+    })
+    .catch(err => {
+        return res.status(520).json({
+            error : 'Something Broken',
+            msg : err
+        });
+    });
 };
 
 exports.destroy = (req, res) => {   // DELETE /channels/:id
-    const id = parseInt(req.params.id, 10); // 문자열 정수화
-    if (!id) {
-        return res.status(400).json({error: 'Incorrect id'});
-    }
-
-    let target = channels.findIndex(channel => channel.id === id )
-    if (target === -1) {
-        return res.status(404).json({error: 'Not found'});
-    }
-
-    let channel = channels.filter(channel => channel.id === id )[0]
-
-    channels.splice(target, 1);
-    return res.json(channel)
-};
-
-exports.create = (req, res) => {    // POST /channels
-    const name = req.body.name || '';
-    if (!name.length) {
+    const name = req.params.id; // 문자열 정수화
+    if (!name) {
         return res.status(400).json({error: 'Incorrect name'});
     }
 
-    const id = channels.reduce((maxId, channel) => {
-        return channel.id > maxId ? channel.id : maxId
-    }, 0) + 1;
-
-    const newChannel = {
-        id: id,
-        name: name
-    }
-
-    channels.push(newChannel);
-
-    return res.status(201).json(newChannel);
+    models.Channels.deleteOne({channelName: name}, (err, result) => {
+        if (err) {
+            return res.status(520).json({
+                error : 'Something Broken',
+                msg : err
+            });
+        }
+        return res.json(result);
+    });
 };
 
+exports.create = (req, res) => {    // POST /channels
+    const name = req.body.channelName;
+    const inputData = new models.Channels({
+        channelName: name
+    });
 
-/* Temp Database */
-let channels = [
-    {
-        id: 1,
-        name: `jokes`,
-    },
-    {
-        id: 2,
-        name: `quotes`,
-    },
-    {
-        id: 3,
-        name: `tips`,
-    }
-]
-//////////////////////////////
+    inputData.save()
+    .then(channel => {
+        res.status(201).json(channel);
+    })
+    .catch(err => {
+        return res.status(520).json({
+            error : 'Something Broken',
+            msg : err
+        });
+    });
+};
+
+exports.update = (req, res) => {
+    res.json();
+};

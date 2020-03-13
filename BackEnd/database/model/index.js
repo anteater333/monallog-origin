@@ -1,5 +1,6 @@
 
 module.exports = {
     Channels: require('./channels'),
-    Lines: require('./lines'),
+    Users: require('./user'),
+    Lines: require('./lines').model,
 }
