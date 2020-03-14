@@ -85,6 +85,15 @@ export default {
       isSocketOn: false
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$store.dispatch('turnOnBg');
+    });
+  },
+  beforeRouteLeave (to, from, next) {
+    this.$store.dispatch('turnOffBg');
+    next();
+  },
   computed: {
     encourage: function () {
       return 'Speak your line.'

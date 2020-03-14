@@ -1,7 +1,9 @@
 <template>
     <div class="background">
-        <div class="background-cover background-image" :style=styleBgImg></div>
+      <div class="background-cover background-image" :style=styleBgImg></div>
+      <transition name="fade" mode="out-in">
         <div v-show=!isFocused class="background-cover background-overlay"></div>
+      </transition>
     </div>
 </template>
 <script>

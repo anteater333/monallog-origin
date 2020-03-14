@@ -23,10 +23,9 @@ export default {
     'monallog-footer': MonFooter,
     'global-background': GlbBg
   },
-  data () { // 교체 예정
-    // state 사용 시 props가 아니라 컴포넌트 내부에서 끝날 것.
-    return {
-      bgFocus: false
+  computed: {
+      bgFocus: function() {
+        return this.$store.state.bgFocus
     }
   }
 }
