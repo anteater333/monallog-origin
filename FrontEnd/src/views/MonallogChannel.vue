@@ -39,14 +39,27 @@
 import MTextBar from '@/components/MTextBar.vue'
 import LineArea from '@/components/LineArea.vue'
 
+import io from 'socket.io-client'
+
 export default {
   name: 'MonallogChannel',
   components: {
     'line-area': LineArea,
     'm-text-bar': MTextBar
   },
-  sockets: {
-    connect: function () {
+  data () {
+    return {
+      socket: null,
+      line: '',
+      hasCursor: false,
+      isSocketOn: false
+    }
+  },
+  created () {
+    this.socket = io(`http://127.0.0.1:8081`);
+
+    // subscribing event listeners
+    this.socket.on('connect', () => {
       this.$refs.lineArea.pushNotice({
         msgCode: 1,
         msgType: 'notice',
@@ -58,11 +71,11 @@ export default {
 
       console.log(this.$route.params.chId)
 
-      this.$socket.emit('join', { channel: this.$route.params.chId })
+      this.socket.emit('join', { channel: this.$route.params.chId })
 
       this.isSocketOn = true
-    },
-    disconnect: function () {
+    });
+    this.socket.on('disconnect', () => {
       this.$refs.lineArea.pushNotice({
         msgCode: 2,
         msgType: 'error',
@@ -70,20 +83,13 @@ export default {
         timeout: 5000
       })
       this.isSocketOn = false
-    },
-    line: function (data) {
-      this.$refs.lineArea.enqueue(data.line)
-    },
-    news: function (data) {
-
-    }
-  },
-  data () {
-    return {
-      line: '',
-      hasCursor: false,
-      isSocketOn: false
-    }
+    });
+    this.socket.on('line', (data) => {
+      this.$refs.lineArea.enqueue(data.line);
+    });
+    this.socket.on('news', (data) => {  // DEBUG
+      console.log(data);
+    })
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
@@ -91,6 +97,9 @@ export default {
     });
   },
   beforeRouteLeave (to, from, next) {
+    if(this.isSocketOn)
+      this.socket.close();
+
     this.$store.dispatch('turnOffBg');
     next();
   },
@@ -114,8 +123,7 @@ export default {
   methods: {
     postLine: function () {
       if (this.line && this.isSocketOn) { // 정상적으로 이벤트 발생
-        console.log(this.$route.params.chId)
-        this.$socket.emit('line', {
+        this.socket.emit('line', {
           line: this.line,
           channel: this.$route.params.chId, // placeholding
           author: '아무개' // also placeholoding
