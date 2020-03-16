@@ -17,7 +17,7 @@ export default {
   },
   data () {
     return {
-      bgImgUrl: '/assets/img/background.png' // placeholding
+      bgImgUrl: 'https://i.imgur.com/z8pp06V.png' // placeholding
     }
   },
   computed: {
