@@ -21,6 +21,10 @@ export default new Router({
       path: '/dev',
       name: 'dev',
       component: () => import(`./views/MonallogChannel.vue`)
+    },
+    { // 404 not found
+      path: '*', //
+      component: () => import(`./views/MonallogNotFound.vue`)
     }
     /*
     {

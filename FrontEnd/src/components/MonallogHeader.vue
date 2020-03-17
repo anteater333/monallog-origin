@@ -8,8 +8,8 @@
         </router-link>
         <div v-if="!isAuthenticated" class="identification">
             <!-- placeholding -->
-            <router-link class="sign-button sign-up" to="/">SIGN UP</router-link>
-            <router-link class="sign-button sign-in" to="/">SIGN IN</router-link>
+            <router-link class="monallog-button sign-button sign-up" to="/">SIGN UP</router-link>
+            <router-link class="monallog-button sign-button sign-in" to="/">SIGN IN</router-link>
         </div>
         <div v-else class="identification">
             <router-link class="profile" to="/">
@@ -57,23 +57,6 @@ export default {
 }
 
 .sign-button {
-    height: 30px;
-
-    border: medium;
-    border-style: solid;
-    border-color: var(--white);
-    border-radius: 7px;
-
-    padding: 0.1em 0.3em;
-
-    font-size: 20px;
-
-    text-align: center;
-    text-decoration: none;
-    line-height: 1.5;
-
-    font-family: Relancer;
-
     background-color: var(--black);
     color: var(--white);
 

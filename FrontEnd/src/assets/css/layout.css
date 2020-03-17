@@ -8,6 +8,26 @@ body {
     background-color: var(--background);
 }
 
+/* Global Style */
+.monallog-button {
+    height: 30px;
+
+    border: medium;
+    border-style: solid;
+    border-color: var(--white);
+    border-radius: 7px;
+
+    padding: 0.1em 0.3em;
+
+    font-size: 20px;
+
+    text-align: center;
+    text-decoration: none;
+    line-height: 1.5;
+
+    font-family: Relancer;
+}
+
 /* Background */
 .background-cover {
     position: absolute;
@@ -140,4 +160,20 @@ footer {
     margin-left: 1%;
     margin-right: 1%;
     padding: 0px;
+}
+
+/* 404 Not Found */
+.not-found-content {
+    position: absolute;
+    top: 25vh;
+    
+    width: 100%;
+}
+
+.not-found-text {
+    margin-bottom: 5vh;
+}
+
+.go-home-button {
+    padding: 0.5rem 1rem 0.5rem 1rem;
 }
