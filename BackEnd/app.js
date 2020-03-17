@@ -4,12 +4,15 @@ const server = require('http').createServer(app);
 const port = 8081;
 
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const database = require('./database');
 
 // set middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors());
 
 // API routing
 app.use('/', require('./api'));
