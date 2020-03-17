@@ -17,13 +17,9 @@ export default new Router({
       name: 'channel',
       component: () => import(/* webpackChunkName: "channel" */`./views/MonallogChannel.vue`)
     },
-    { // temporary routing for development
-      path: '/dev',
-      name: 'dev',
-      component: () => import(`./views/MonallogChannel.vue`)
-    },
     { // 404 not found
-      path: '*', //
+      path: '*',
+      name: '404',
       component: () => import(`./views/MonallogNotFound.vue`)
     }
     /*
@@ -36,5 +32,10 @@ export default new Router({
       component: () => import('./views/About.vue') // webpackChunkName: "about"
     }
     */
+    // , { // temporary routing for development
+    //   path: '/dev',
+    //   name: 'dev',
+    //   component: () => import(`./views/MonallogChannel.vue`)
+    // }
   ]
 })

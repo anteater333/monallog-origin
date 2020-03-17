@@ -39,6 +39,7 @@
 import MTextBar from '@/components/MTextBar.vue'
 import LineArea from '@/components/LineArea.vue'
 
+import axios from 'axios'
 import io from 'socket.io-client'
 
 export default {
@@ -56,7 +57,7 @@ export default {
     }
   },
   created () {
-    this.socket = io(`http://127.0.0.1:8081`);
+    this.socket = io(process.env.VUE_APP_SOCKET_SERVER);
 
     // subscribing event listeners
     this.socket.on('connect', () => {
@@ -67,7 +68,7 @@ export default {
         timeout: 3000
       })
 
-      this.$route.params.chId = this.$route.params.chId ?? "dev"
+      this.$route.params.chId = this.$route.params.chId
 
       console.log(this.$route.params.chId)
 
@@ -92,9 +93,23 @@ export default {
     })
   },
   beforeRouteEnter (to, from, next) {
-    next(vm => {
-      vm.$store.dispatch('turnOnBg');
+    const requestURL = process.env.VUE_APP_API_SERVER
+      + `channels/`
+      + to.params.chId;
+
+    axios.get(requestURL)
+    .then(function(response) {
+      console.log(response);
+      next(vm => {  // channel view에 정상적으로 접근
+        vm.$store.dispatch('turnOnBg');
+      });
+    })
+    .catch(function(error) {
+      if (error.response.status == 404) next('404');  // 해당 channel 없음
+      else   // 그 외의 오류처리
+        alert(`예상치 못한 문제가 발생했습니다.\n anteater333@github로 문의주세요.\n${error}`);
     });
+    
   },
   beforeRouteLeave (to, from, next) {
     if(this.isSocketOn)
@@ -131,7 +146,7 @@ export default {
       } else if (!this.line) { // 텍스트 없음
         alert('내용을 입력해주세요.');
       } else if (!this.isSocketOn) { // socketio 연결 안됨
-        alert('채팅 서버가 연결되지 않았습니다.\n ... 로 문의해 주세요.');
+        alert('채팅 서버가 연결되지 않았습니다.\n anteater333@github 로 문의해 주세요.');
       }
       this.line = ''
     }
