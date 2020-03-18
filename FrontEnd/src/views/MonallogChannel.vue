@@ -86,7 +86,8 @@ export default {
       this.isSocketOn = false
     });
     this.socket.on('line', (data) => {
-      this.$refs.lineArea.enqueue(data.line);
+      if (!document.hidden) // don't get lines when page is inactive
+        this.$refs.lineArea.enqueue(data.line);
     });
     this.socket.on('news', (data) => {  // DEBUG
       console.log(data);
