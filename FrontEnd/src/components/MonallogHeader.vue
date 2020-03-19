@@ -7,10 +7,15 @@
                 class="small-logo-img">
         </router-link>
         <div v-if="!isAuthenticated" class="identification">
+            <m-button class="sign-button sign-up"
+            @click="signIn">
+              SIGN UP
+            </m-button>
+            <m-button class="sign-button sign-in">
+              SIGN IN
+            </m-button>
             <!-- placeholding -->
-            <router-link class="monallog-button sign-button sign-up" to="/">SIGN UP</router-link>
-            <router-link class="monallog-button sign-button sign-in" to="/">SIGN IN</router-link>
-        </div>
+          </div>
         <div v-else class="identification">
             <router-link class="profile" to="/">
                 <img src="../assets/profile-default.png"
@@ -21,8 +26,13 @@
 </template>
 
 <script>
+import MButton from '@/components/MButton.vue'
+
 export default {
   name: 'MonallogHeader',
+  components: {
+    'm-button' : MButton
+  },
   data:
         function () {
           return {
@@ -37,6 +47,11 @@ export default {
       set: function (value) {
         this.auth = value
       }
+    }
+  },
+  methods: {
+    signIn: function() {
+      alert("개발중임다.")
     }
   }
 }
