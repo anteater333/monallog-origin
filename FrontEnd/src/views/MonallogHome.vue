@@ -45,11 +45,28 @@ export default {
 </script>
 
 <style scoped>
+.monallog-home {
+    position: absoulte;
+
+    display: flexbox;
+}
+
 .home-content {
+    position: absolute;
+    top: 35vh;
+    
+    width: 100%;
+    
     opacity: 0.75;
 }
 
+.main-logo {
+    margin-bottom: 5vh;
+}
+
 .search {
+    margin: auto;
+    
     max-width: 457px;
     height: 42px;
 

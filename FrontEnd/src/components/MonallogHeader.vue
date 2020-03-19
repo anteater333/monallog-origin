@@ -7,10 +7,15 @@
                 class="small-logo-img">
         </router-link>
         <div v-if="!isAuthenticated" class="identification">
+            <m-button class="sign-button sign-up"
+            @click="signIn">
+              SIGN UP
+            </m-button>
+            <m-button class="sign-button sign-in">
+              SIGN IN
+            </m-button>
             <!-- placeholding -->
-            <router-link class="monallog-button sign-button sign-up" to="/">SIGN UP</router-link>
-            <router-link class="monallog-button sign-button sign-in" to="/">SIGN IN</router-link>
-        </div>
+          </div>
         <div v-else class="identification">
             <router-link class="profile" to="/">
                 <img src="../assets/profile-default.png"
@@ -21,8 +26,13 @@
 </template>
 
 <script>
+import MButton from '@/components/MButton.vue'
+
 export default {
   name: 'MonallogHeader',
+  components: {
+    'm-button' : MButton
+  },
   data:
         function () {
           return {
@@ -38,6 +48,11 @@ export default {
         this.auth = value
       }
     }
+  },
+  methods: {
+    signIn: function() {
+      alert("개발중임다.")
+    }
   }
 }
 </script>
@@ -45,18 +60,44 @@ export default {
 <style scoped>
 .header {
     background-color: var(--black);
+    
+    height: 6vh;
+    max-height: 75px;
+    min-height: 45px;
+
+    display: flex;
+}
+
+.small-logo, .identification {
+    flex: none;
+
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .small-logo {
     border: 0;
     outline: 0;
+    
+    margin-left: 2vw;
 }
 
 .identification {
     opacity: 0.5;
+
+    margin-left: auto;
+    margin-right: 1vw;
 }
 
 .sign-button {
+    display: block;
+    position: relative;
+    float: left;
+
+    margin-left: 5px;
+
+    line-height: 30px;
+
     background-color: var(--black);
     color: var(--white);
 
@@ -69,6 +110,10 @@ export default {
 }
 
 .profile {
+    display: block;
+    
+    margin-left: 5px;
+
     height: 25px;
     width: 25px;
     border-radius: 50%;

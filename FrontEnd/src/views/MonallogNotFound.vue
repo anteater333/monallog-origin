@@ -30,18 +30,25 @@ export default {
 }
 
 .not-found-content {
-  opacity: 0.75;
-}
+    position: absolute;
+    top: 25vh;
+    
+    width: 100%;
 
-.not-found-logo {
+    opacity: 0.75;
 }
 
 .not-found-text {
+    margin-bottom: 5vh;
+
     font-size: 18px;
     font-family: NanumBarunGothic;
 }
 
 .go-home-button {
+
+    padding: 0.5rem 1rem 0.5rem 1rem;
+
     font-size: 24px;
     font-family: NanumBarunGothic;
 
