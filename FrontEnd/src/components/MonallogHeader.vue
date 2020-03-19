@@ -45,18 +45,44 @@ export default {
 <style scoped>
 .header {
     background-color: var(--black);
+    
+    height: 6vh;
+    max-height: 75px;
+    min-height: 45px;
+
+    display: flex;
+}
+
+.small-logo, .identification {
+    flex: none;
+
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .small-logo {
     border: 0;
     outline: 0;
+    
+    margin-left: 2vw;
 }
 
 .identification {
     opacity: 0.5;
+
+    margin-left: auto;
+    margin-right: 1vw;
 }
 
 .sign-button {
+    display: block;
+    position: relative;
+    float: left;
+
+    margin-left: 5px;
+
+    line-height: 30px;
+
     background-color: var(--black);
     color: var(--white);
 
@@ -69,6 +95,10 @@ export default {
 }
 
 .profile {
+    display: block;
+    
+    margin-left: 5px;
+
     height: 25px;
     width: 25px;
     border-radius: 50%;

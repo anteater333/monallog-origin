@@ -37,6 +37,14 @@ export default {
     opacity: 0.5;
 }
 
+.background-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 .background-image {
     background-position: center;
     background-repeat: no-repeat;

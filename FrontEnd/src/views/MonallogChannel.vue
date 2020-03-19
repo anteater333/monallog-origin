@@ -156,17 +156,53 @@ export default {
 </script>
 
 <style scoped>
+.monallog-channel {
+    position: absolute;
+
+    height: 100%;
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.line-area {
+    position: relative;
+    flex: 1;
+}
+
+.line-area .channel-notice {
+    position: absolute;
+    z-index: 10;
+}
+
+.line-area .m-line {
+    z-index: 5;
+}
+
 .post-line {
+    margin-top: auto;
+    margin-bottom: 0.5%;
+
+    display: flex;
+
     opacity: 0.75;
 }
 
-/*
 .line-text {
+    flex: 1;
 
+    margin-left: 1%;
 }
-*/
+
 
 .line-button {
+    box-sizing: content-box;
+
+    margin-left: 1%;
+    margin-right: 1%;
+    padding: 0px;
+
     display: flex;
     justify-content: center;
 

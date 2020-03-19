@@ -32,8 +32,7 @@ export default {
 </script>
 
 <style>
-/* Base css */
-@import 'assets/css/layout.css';
+/* animation */
 @import 'assets/css/v-animation.css';
 </style>
 
@@ -54,4 +53,22 @@ export default {
   text-align: center;
   color: var(--white);
 }
+
+body {
+    width: 100%;
+    max-width: 1080px;
+
+    margin: auto;
+
+    background-color: var(--background);
+}
+
+.main-view {
+    position: relative;
+    height: 94vh;
+    width: inherit;
+
+    overflow: hidden;
+}
+
 </style>
