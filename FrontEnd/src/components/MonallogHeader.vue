@@ -29,38 +29,38 @@
 import MButton from '@/components/MButton.vue'
 
 export default {
-  name: 'MonallogHeader',
-  components: {
-    'm-button' : MButton
-  },
-  data:
+    name: 'MonallogHeader',
+    components: {
+        'm-button': MButton
+    },
+    data:
         function () {
-          return {
-            auth: false
-          }
+            return {
+                auth: false
+            }
         },
-  computed: {
-    isAuthenticated: {
-      get: function () {
-        return this.auth
-      },
-      set: function (value) {
-        this.auth = value
-      }
+    computed: {
+        isAuthenticated: {
+            get: function () {
+                return this.auth
+            },
+            set: function (value) {
+                this.auth = value
+            }
+        }
+    },
+    methods: {
+        signIn: function () {
+            alert('개발중임다.')
+        }
     }
-  },
-  methods: {
-    signIn: function() {
-      alert("개발중임다.")
-    }
-  }
 }
 </script>
 
 <style scoped>
 .header {
     background-color: var(--black);
-    
+
     height: 6vh;
     max-height: 75px;
     min-height: 45px;
@@ -78,7 +78,7 @@ export default {
 .small-logo {
     border: 0;
     outline: 0;
-    
+
     margin-left: 2vw;
 }
 
@@ -111,7 +111,7 @@ export default {
 
 .profile {
     display: block;
-    
+
     margin-left: 5px;
 
     height: 25px;

@@ -22,25 +22,25 @@
 import MTextBar from '@/components/MTextBar.vue'
 
 export default {
-  name: 'MonallogHome',
-  components: {
-    'm-text-bar': MTextBar
-  },
-  data () {
-    return {
-      searchKey: ''
+    name: 'MonallogHome',
+    components: {
+        'm-text-bar': MTextBar
+    },
+    data () {
+        return {
+            searchKey: ''
+        }
+    },
+    computed: {
+        greeting: function () {
+            return 'Find Your Channel.'
+        }
+    },
+    methods: {
+        searchChan: function () { // 백엔드 완성 시 검색기능으로 변경해야함.
+            this.$router.push({ name: 'channel', params: { chId: this.searchKey } })
+        }
     }
-  },
-  computed: {
-    greeting: function () {
-      return 'Find Your Channel.'
-    }
-  },
-  methods: {
-    searchChan: function () { // 백엔드 완성 시 검색기능으로 변경해야함.
-      this.$router.push({ name: 'channel', params: { chId: this.searchKey } })
-    }
-  }
 }
 </script>
 
@@ -54,9 +54,9 @@ export default {
 .home-content {
     position: absolute;
     top: 35vh;
-    
+
     width: 100%;
-    
+
     opacity: 0.75;
 }
 
@@ -66,7 +66,7 @@ export default {
 
 .search {
     margin: auto;
-    
+
     max-width: 457px;
     height: 42px;
 

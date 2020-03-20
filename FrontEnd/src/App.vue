@@ -17,17 +17,17 @@ import MonFooter from '@/components/MonallogFooter'
 import GlbBg from '@/components/GlobalBackground'
 
 export default {
-  name: 'App',
-  components: {
-    'monallog-header': MonHeader,
-    'monallog-footer': MonFooter,
-    'global-background': GlbBg
-  },
-  computed: {
-      bgFocus: function() {
-        return this.$store.state.bgFocus
+    name: 'App',
+    components: {
+        'monallog-header': MonHeader,
+        'monallog-footer': MonFooter,
+        'global-background': GlbBg
+    },
+    computed: {
+        bgFocus: function () {
+            return this.$store.state.bgFocus
+        }
     }
-  }
 }
 </script>
 

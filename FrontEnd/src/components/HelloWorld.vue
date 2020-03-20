@@ -32,11 +32,11 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String,
-    배포할때지워야쥥: null
-  }
+    name: 'HelloWorld',
+    props: {
+        msg: String,
+        배포할때지워야쥥: null
+    }
 }
 </script>
 

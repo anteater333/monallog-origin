@@ -4,24 +4,24 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: () => import(/* webpackChunkName: "home" */`./views/MonallogHome.vue`)
-    },
-    {
-      path: '/ch/:chId',
-      name: 'channel',
-      component: () => import(/* webpackChunkName: "channel" */`./views/MonallogChannel.vue`)
-    },
-    { // 404 not found
-      path: '*',
-      name: '404',
-      component: () => import(`./views/MonallogNotFound.vue`)
-    }
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: () => import(/* webpackChunkName: "home" */`./views/MonallogHome.vue`)
+        },
+        {
+            path: '/ch/:chId',
+            name: 'channel',
+            component: () => import(/* webpackChunkName: "channel" */`./views/MonallogChannel.vue`)
+        },
+        { // 404 not found
+            path: '*',
+            name: '404',
+            component: () => import(`./views/MonallogNotFound.vue`)
+        }
     /*
     {
       path: '/about',
@@ -37,5 +37,5 @@ export default new Router({
     //   name: 'dev',
     //   component: () => import(`./views/MonallogChannel.vue`)
     // }
-  ]
+    ]
 })
