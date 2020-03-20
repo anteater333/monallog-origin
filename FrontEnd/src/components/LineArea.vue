@@ -75,7 +75,7 @@ export default {
     computed: {
         lineStyle: function () {
             return {
-                animationDuration: this.lineDuration + `ms`
+                animationDuration: this.lineDuration + 'ms'
             }
         }
     },
@@ -107,7 +107,7 @@ export default {
     },
     methods: {
         enqueue: function (input) {
-            let line = { // 당연히 이게 아니라 객체를 전달해야함...
+            const line = { // 당연히 이게 아니라 객체를 전달해야함...
                 id: this.lineId,
                 text: input,
                 actor: '아무개',
@@ -120,7 +120,7 @@ export default {
             this.lineId++
         },
         dequeue: function () {
-            let rtLine = this.curLines.shift()
+            const rtLine = this.curLines.shift()
             return rtLine
         },
         /**
@@ -143,16 +143,16 @@ export default {
 }
 
 const getFormatDate = (date) => {
-    let coder = (val) => {
+    const coder = (val) => {
         return val >= 10 ? val : '0' + val
     }
 
-    let year = date.getFullYear()
-    let month = coder((1 + date.getMonth()))
-    let day = coder(date.getDate())
-    let hour = coder(date.getHours())
-    let minute = coder(date.getMinutes())
-    let second = coder(date.getSeconds())
+    const year = date.getFullYear()
+    const month = coder((1 + date.getMonth()))
+    const day = coder(date.getDate())
+    const hour = coder(date.getHours())
+    const minute = coder(date.getMinutes())
+    const second = coder(date.getSeconds())
     return year + '-' + month + '-' + day +
         ' ' + hour + ':' + minute + ':' + second
 }

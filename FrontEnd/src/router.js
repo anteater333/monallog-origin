@@ -10,17 +10,17 @@ export default new Router({
         {
             path: '/',
             name: 'home',
-            component: () => import(/* webpackChunkName: "home" */`./views/MonallogHome.vue`)
+            component: () => import(/* webpackChunkName: "home" */'./views/MonallogHome.vue')
         },
         {
             path: '/ch/:chId',
             name: 'channel',
-            component: () => import(/* webpackChunkName: "channel" */`./views/MonallogChannel.vue`)
+            component: () => import(/* webpackChunkName: "channel" */'./views/MonallogChannel.vue')
         },
         { // 404 not found
             path: '*',
             name: '404',
-            component: () => import(`./views/MonallogNotFound.vue`)
+            component: () => import('./views/MonallogNotFound.vue')
         }
     /*
     {

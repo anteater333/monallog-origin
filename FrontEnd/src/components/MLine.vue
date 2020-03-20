@@ -50,7 +50,7 @@ export default {
         case 1:
             this.height = {
                 position: 'absolute',
-                top: Math.random() * 90 + `%`
+                top: Math.random() * 90 + '%'
             }
             break
         case 2:

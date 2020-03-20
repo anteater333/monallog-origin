@@ -68,8 +68,6 @@ export default {
                 timeout: 3000
             })
 
-            this.$route.params.chId = this.$route.params.chId
-
             console.log(this.$route.params.chId)
 
             this.socket.emit('join', { channel: this.$route.params.chId })
@@ -96,7 +94,7 @@ export default {
     },
     beforeRouteEnter (to, from, next) {
         const requestURL = process.env.VUE_APP_API_SERVER +
-      `channels/` +
+      'channels/' +
       to.params.chId
 
         axios.get(requestURL)
@@ -127,9 +125,9 @@ export default {
             return this.line.length
         },
         counterColor: function () {
-            let gray = 200 - this.lineCount * 5
+            const gray = 200 - this.lineCount * 5
             return {
-                'color': `rgb(${gray}, ${gray}, ${gray})`
+                color: `rgb(${gray}, ${gray}, ${gray})`
             }
         },
         hasText: function () {

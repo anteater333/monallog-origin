@@ -10,7 +10,7 @@
 export default {
     name: 'global-background',
     props: {
-        'isFocused': {
+        isFocused: {
             type: Boolean,
             default: false
         }
