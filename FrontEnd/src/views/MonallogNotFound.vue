@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  name: 'MonallogNotFound',
+    name: 'MonallogNotFound'
 }
 </script>
 
@@ -32,7 +32,7 @@ export default {
 .not-found-content {
     position: absolute;
     top: 25vh;
-    
+
     width: 100%;
 
     opacity: 0.75;

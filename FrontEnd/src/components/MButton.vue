@@ -7,21 +7,20 @@
 
 <script>
 export default {
-  name: 'MButton',
-  props: {
-      
-  },
-  data: function () {
-    return {
+    name: 'MButton',
+    props: {
 
+    },
+    data: function () {
+        return {
+
+        }
+    },
+    methods: {
+        callback: function (e) {
+            this.$emit('click', e)
+        }
     }
-  }
-  ,
-  methods: {
-      callback: function(e) {
-          this.$emit('click', e);
-      }
-  }
 }
 </script>
 

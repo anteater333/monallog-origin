@@ -8,25 +8,25 @@
 </template>
 <script>
 export default {
-  name: 'global-background',
-  props: {
-    'isFocused': {
-      type: Boolean,
-      default: false
+    name: 'global-background',
+    props: {
+        isFocused: {
+            type: Boolean,
+            default: false
+        }
+    },
+    data () {
+        return {
+            bgImgUrl: 'https://i.imgur.com/z8pp06V.png' // placeholding
+        }
+    },
+    computed: {
+        styleBgImg () {
+            return {
+                'background-image': `url(${this.bgImgUrl})`
+            }
+        }
     }
-  },
-  data () {
-    return {
-      bgImgUrl: 'https://i.imgur.com/z8pp06V.png' // placeholding
-    }
-  },
-  computed: {
-    styleBgImg () {
-      return {
-        'background-image': `url(${this.bgImgUrl})`
-      }
-    }
-  }
 }
 </script>
 

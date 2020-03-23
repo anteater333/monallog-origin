@@ -10,30 +10,30 @@
 
 <script>
 export default {
-  name: 'MTextBar',
-  props: {
-    catchPhrase: {
-      type: String,
-      default: 'Monallog, 집단적 독백.'
+    name: 'MTextBar',
+    props: {
+        catchPhrase: {
+            type: String,
+            default: 'Monallog, 집단적 독백.'
+        },
+        value: {
+            type: String,
+            default: ''
+        }
     },
-    value: {
-      type: String,
-      default: ''
-    }
-  },
-  data () {
-    return {
+    data () {
+        return {
 
-    }
-  },
-  methods: {
-    updateValue: function (value) {
-      this.$emit('input', value)
+        }
     },
-    emitEnter: function () {
-      this.$emit('enter')
+    methods: {
+        updateValue: function (value) {
+            this.$emit('input', value)
+        },
+        emitEnter: function () {
+            this.$emit('enter')
+        }
     }
-  }
 }
 </script>
 
