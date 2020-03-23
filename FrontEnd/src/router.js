@@ -20,7 +20,7 @@ export default new Router({
         { // 404 not found
             path: '*',
             name: '404',
-            component: () => import('./views/MonallogNotFound.vue')
+            component: () => import(/* webpackChunkName: "404" */'./views/MonallogNotFound.vue')
         }
     /*
     {
