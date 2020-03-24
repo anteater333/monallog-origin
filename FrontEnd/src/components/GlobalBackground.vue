@@ -17,7 +17,8 @@ export default {
     },
     data () {
         return {
-            bgImgUrl: 'https://i.imgur.com/z8pp06V.png' // placeholding
+            bgImgUrl: 'https://i.imgur.com/uNqQMYZ.gif'
+            // bgImgUrl: 'https://i.imgur.com/z8pp06V.png' // placeholding
         }
     },
     computed: {
