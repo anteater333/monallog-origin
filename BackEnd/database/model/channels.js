@@ -10,7 +10,6 @@ const channelSchema = new mongoose.Schema({
     description: {
         type: String,
     },
-    //channelOptions: [],
     tags: {
         type: Array,
         of: String,
@@ -22,7 +21,12 @@ const channelSchema = new mongoose.Schema({
     dateCreated: {
         type: Date,
         default: Date.now(),
-    }
+    },
+    channelOptions: {
+        backgroundURL: {
+            type: String
+        }
+    },
 });
 
 // plugins

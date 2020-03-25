@@ -26,7 +26,19 @@ require('./socket')(server);
 server.listen(port, () => {
     console.log(`Example app listening on ${port} port!`)
     
-    // let testData1 = new database.models.Channels({channelName: 'jokes01'});
+    tester()
+});
+
+module.exports = app;
+
+
+const tester = () => {
+    // let testData1 = new database.models.Channels({
+    //     channelName: 'jokes',
+    //     channelOptions: {
+    //         backgroundURL: 'http://127.0.0.1:8083/media/bg-img/image202003241438030000000.gif'
+    //     }
+    // });
     // testData1.save((err) => {
     //     if(err) {
     //         console.log('error 발생');
@@ -64,35 +76,33 @@ server.listen(port, () => {
     //     });
     // });
 
-    database.models.Users.find()
-    .then(docs => {
-        console.log('Users---------------');
-        if (docs.length === 0) console.log("no such user here");
-        else {
-            while (doc = docs.shift()) {
-                console.log(doc.toString());
-            }
-        }
-        console.log('------------------');
-    })
-    .catch(err => {
-        console.error(err);
-    });
+    // database.models.Users.find()
+    // .then(docs => {
+    //     console.log('Users---------------');
+    //     if (docs.length === 0) console.log("no such user here");
+    //     else {
+    //         while (doc = docs.shift()) {
+    //             console.log(doc.toString());
+    //         }
+    //     }
+    //     console.log('------------------');
+    // })
+    // .catch(err => {
+    //     console.error(err);
+    // });
 
-    database.models.Channels.find()
-    .then(docs => {
-        console.log('channels-------------');
-        if (docs.length === 0) console.log("no channels here yet");
-        else {
-            docs.forEach((doc, idx) => {
-                console.log(idx + " :: "+ doc.toString());
-            });
-        }
-        console.log('------------------');
-    })
-    .catch(err => {
-        console.error(err);
-    });
-});
-
-module.exports = app;
+    // database.models.Channels.find()
+    // .then(docs => {
+    //     console.log('channels-------------');
+    //     if (docs.length === 0) console.log("no channels here yet");
+    //     else {
+    //         docs.forEach((doc, idx) => {
+    //             console.log(idx + " :: "+ doc.toString());
+    //         });
+    //     }
+    //     console.log('------------------');
+    // })
+    // .catch(err => {
+    //     console.error(err);
+    // });
+}
