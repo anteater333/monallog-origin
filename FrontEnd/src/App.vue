@@ -2,7 +2,7 @@
   <div id="app">
     <monallog-header />
     <section class="main-view" >
-      <global-background :is-focused="bgFocus" />
+      <global-background />
       <transition  name="fade">
         <router-view />
       </transition>
@@ -16,6 +16,8 @@ import MonHeader from '@/components/MonallogHeader'
 import MonFooter from '@/components/MonallogFooter'
 import GlbBg from '@/components/GlobalBackground'
 
+import axios from 'axios'
+
 export default {
     name: 'App',
     components: {
@@ -24,8 +26,13 @@ export default {
         'global-background': GlbBg
     },
     computed: {
-        bgFocus: function () {
-            return this.$store.state.bgFocus
+    },
+    created () {
+        if (!this.$store.getBgImgUrl) {
+            axios.get(process.env.VUE_APP_API_SERVER)
+                .then((response) => {
+                    this.$store.dispatch('updateBgImg', { url: response.data.image })
+                })
         }
     }
 }
