@@ -7,25 +7,26 @@
     </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
     name: 'global-background',
-    props: {
-        isFocused: {
-            type: Boolean,
-            default: false
-        }
-    },
     data () {
         return {
-            bgImgUrl: 'http://127.0.0.1:8083/media/bg-img/image202003241438030000000.gif'
-            // bgImgUrl: 'https://i.imgur.com/z8pp06V.png' // placeholding
         }
     },
     computed: {
+        ...mapGetters([
+            'getBgFocus',
+            'getBgImgUrl'
+        ]),
         styleBgImg () {
             return {
-                'background-image': `url(${this.bgImgUrl})`
+                'background-image': `url(${this.getBgImgUrl})`
             }
+        },
+        isFocused () {
+            return this.getBgFocus
         }
     }
 }

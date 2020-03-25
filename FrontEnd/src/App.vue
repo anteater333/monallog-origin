@@ -2,7 +2,7 @@
   <div id="app">
     <monallog-header />
     <section class="main-view" >
-      <global-background :is-focused="bgFocus" />
+      <global-background />
       <transition  name="fade">
         <router-view />
       </transition>
@@ -24,9 +24,6 @@ export default {
         'global-background': GlbBg
     },
     computed: {
-        bgFocus: function () {
-            return this.$store.state.bgFocus
-        }
     }
 }
 </script>

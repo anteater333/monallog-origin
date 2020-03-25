@@ -99,9 +99,11 @@ export default {
 
         axios.get(requestURL)
             .then(function (response) {
-                console.log(response)
+                console.log(response) // 나중에 지워!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                const bgUrl = response.data.channelOptions.backgroundURL
                 next(vm => { // channel view에 정상적으로 접근
                     vm.$store.dispatch('turnOnBg')
+                    vm.$store.dispatch('updateBgImg', { url: bgUrl })
                 })
             })
             .catch(function (error) {
