@@ -34,9 +34,9 @@ module.exports = app;
 
 const tester = () => {
     // let testData1 = new database.models.Channels({
-    //     channelName: 'jokes',
+    //     channelName: 'test',
     //     channelOptions: {
-    //         backgroundURL: 'http://127.0.0.1:8083/media/bg-img/image202003241438030000000.gif'
+    //         backgroundURL: 'http://127.0.0.1:8083/media/bg-img/image202003252005430000000.gif'
     //     }
     // });
     // testData1.save((err) => {
@@ -49,7 +49,6 @@ const tester = () => {
     //     else {
     //         console.log("테스트용 데이터 추가됨 : " + testData1.collection.collectionName);
     //     }
-
     //     database.models.Channels.findAll((err, channels) => {
     //         if(err) console.log(err);
     //         else if(channels.length === 0) console.log('no channels here');
@@ -68,7 +67,6 @@ const tester = () => {
     //     else {
     //         console.log("테스트용 데이터 추가됨 : " + testData2.collection.collectionName);
     //     }
-
     //     database.models.Users.findAll((err, channels) => {
     //         if(err) console.log(err);
     //         else if(channels.length === 0) console.log('no users here');
