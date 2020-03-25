@@ -16,6 +16,8 @@ import MonHeader from '@/components/MonallogHeader'
 import MonFooter from '@/components/MonallogFooter'
 import GlbBg from '@/components/GlobalBackground'
 
+import axios from 'axios'
+
 export default {
     name: 'App',
     components: {
@@ -24,6 +26,14 @@ export default {
         'global-background': GlbBg
     },
     computed: {
+    },
+    created () {
+        if (!this.$store.getBgImgUrl) {
+            axios.get(process.env.VUE_APP_API_SERVER)
+                .then((response) => {
+                    this.$store.dispatch('updateBgImg', { url: response.data.image })
+                })
+        }
     }
 }
 </script>
