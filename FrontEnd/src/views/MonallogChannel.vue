@@ -2,6 +2,7 @@
     <div class="monallog-channel">
         <line-area ref="lineArea" />
         <div class="post-line">
+            <m-music-player/>
             <m-text-bar
                 class="line-text"
                 :catch-phrase="encourage"
@@ -37,7 +38,8 @@
 
 <script>
 import MTextBar from '@/components/MTextBar.vue'
-import LineArea from '@/components/LineArea.vue'
+import LineArea from '@/components/MLineArea.vue'
+import MMusicPlayer from '@/components/MMusicPlayer.vue'
 
 import axios from 'axios'
 import io from 'socket.io-client'
@@ -46,7 +48,8 @@ export default {
     name: 'MonallogChannel',
     components: {
         'line-area': LineArea,
-        'm-text-bar': MTextBar
+        'm-text-bar': MTextBar,
+        'm-music-player': MMusicPlayer
     },
     data () {
         return {
