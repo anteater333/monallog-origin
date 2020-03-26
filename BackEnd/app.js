@@ -36,7 +36,8 @@ const tester = () => {
     // let testData1 = new database.models.Channels({
     //     channelName: 'test',
     //     channelOptions: {
-    //         backgroundURL: 'http://127.0.0.1:8083/media/bg-img/image202003252005430000000.gif'
+    //         backgroundURL: 'http://127.0.0.1:8083/media/bg-img/image202003252005430000000.gif',
+
     //     }
     // });
     // testData1.save((err) => {
@@ -89,18 +90,18 @@ const tester = () => {
     //     console.error(err);
     // });
 
-    // database.models.Channels.find()
-    // .then(docs => {
-    //     console.log('channels-------------');
-    //     if (docs.length === 0) console.log("no channels here yet");
-    //     else {
-    //         docs.forEach((doc, idx) => {
-    //             console.log(idx + " :: "+ doc.toString());
-    //         });
-    //     }
-    //     console.log('------------------');
-    // })
-    // .catch(err => {
-    //     console.error(err);
-    // });
+    database.models.Channels.findAll()
+    .then(docs => {
+        console.log('channels-------------');
+        if (docs.length === 0) console.log("no channels here yet");
+        else {
+            docs.forEach((doc, idx) => {
+                console.log(idx + " :: "+ doc);
+            });
+        }
+        console.log('------------------');
+    })
+    .catch(err => {
+        console.error(err);
+    });
 }

@@ -1,5 +1,3 @@
-// 싹다 고쳐야함.
-
 const mongoose = require('mongoose');
 
 const models = require('./model');
