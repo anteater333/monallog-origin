@@ -1,8 +1,9 @@
 <template>
     <div class="monallog-channel">
+        <m-music-player
+            :playlist="chPlaylist"/>
         <line-area ref="lineArea" />
         <div class="post-line">
-            <m-music-player/>
             <m-text-bar
                 class="line-text"
                 :catch-phrase="encourage"
@@ -56,7 +57,8 @@ export default {
             socket: null,
             line: '',
             hasCursor: false,
-            isSocketOn: false
+            isSocketOn: false,
+            chPlaylist: []
         }
     },
     created () {
@@ -71,7 +73,7 @@ export default {
                 timeout: 3000
             })
 
-            console.log(this.$route.params.chId)
+            console.log(this.$route.params.chId) // 지워!!!!!!!!!!!!!!
 
             this.socket.emit('join', { channel: this.$route.params.chId })
 
@@ -107,6 +109,8 @@ export default {
                 next(vm => { // channel view에 정상적으로 접근
                     vm.$store.dispatch('turnOnBg')
                     vm.$store.dispatch('updateBgImg', { url: bgUrl })
+
+                    vm.chPlaylist = response.data.channelOptions.playlist
                 })
             })
             .catch(function (error) {
