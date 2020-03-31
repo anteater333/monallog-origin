@@ -1,7 +1,8 @@
 <template>
     <div class="monallog-channel">
         <m-music-player
-            :playlist="chPlaylist"/>
+            :playlist="chOptions.playlist"
+            :mode="{isRandom: true, isLoop: false}"/>
         <line-area ref="lineArea" />
         <div class="post-line">
             <m-text-bar
@@ -58,7 +59,7 @@ export default {
             line: '',
             hasCursor: false,
             isSocketOn: false,
-            chPlaylist: []
+            chOptions: Object
         }
     },
     created () {
@@ -105,12 +106,12 @@ export default {
         axios.get(requestURL)
             .then(function (response) {
                 console.log(response) // 나중에 지워!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                const bgUrl = response.data.channelOptions.backgroundURL
-                next(vm => { // channel view에 정상적으로 접근
-                    vm.$store.dispatch('turnOnBg')
-                    vm.$store.dispatch('updateBgImg', { url: bgUrl })
 
-                    vm.chPlaylist = response.data.channelOptions.playlist
+                next(vm => { // channel view에 정상적으로 접근
+                    vm.chOptions = response.data.channelOptions
+
+                    vm.$store.dispatch('turnOnBg')
+                    vm.$store.dispatch('updateBgImg', { url: vm.chOptions.backgroundURL })
                 })
             })
             .catch(function (error) {

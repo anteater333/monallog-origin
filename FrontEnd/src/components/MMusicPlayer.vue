@@ -12,7 +12,11 @@
 export default {
     name: 'MMusicPlayer',
     props: {
-        playlist: Array
+        playlist: Array,
+        mode: {
+            isRandom: Boolean,
+            isLoop: Boolean
+        }
     },
     data () {
         return {
@@ -20,15 +24,27 @@ export default {
         }
     },
     computed: {
+        playingOrder: function () {
+            let order = [...Array(this.playlist.length).keys()]
+            if (this.mode.isRandom) {
+                order = shuffle(order)
+            }
+            return order
+        },
         nowPlaying: function () {
-            return this.playlist[this.index].URL
+            const target = (this.playingOrder !== undefined) ? this.playingOrder[this.index] : this.index
+
+            return this.playlist[target].URL
         },
         hasMusic: function () {
-            if (!this.playlist[0]) {
+            if (!this.playlist) {
                 return false
             }
             return true
         }
+    },
+    created () {
+
     },
     methods: {
         nextTrack: function () {
@@ -40,6 +56,12 @@ export default {
         }
     }
 }
+
+const shuffle = arr => arr
+    .map(a => [Math.random(), a])
+    .sort((a, b) => a[0] - b[0])
+    .map(a => a[1])
+
 </script>
 
 <style scoped>
