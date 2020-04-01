@@ -2,7 +2,8 @@
     <div class="monallog-channel">
         <m-music-player
             :playlist="chOptions.playlist"
-            :mode="{isRandom: true, isLoop: false}"/>
+            :mode="{isRandom: true, isLoop: false}"
+            v-if="turnOnAudio"/>
         <line-area ref="lineArea" />
         <div class="post-line">
             <m-text-bar
@@ -74,8 +75,6 @@ export default {
                 timeout: 3000
             })
 
-            console.log(this.$route.params.chId) // 지워!!!!!!!!!!!!!!
-
             this.socket.emit('join', { channel: this.$route.params.chId })
 
             this.isSocketOn = true
@@ -142,6 +141,9 @@ export default {
         },
         hasText: function () {
             return this.lineCount !== 0
+        },
+        turnOnAudio: function () {
+            return (this.chOptions.playlist !== undefined)
         }
     },
     methods: {
