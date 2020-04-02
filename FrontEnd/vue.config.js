@@ -1,4 +1,4 @@
 module.exports = {
     assetsDir: '',
-    publicPath: '/'
+    publicPath: '/monallog/'
 }
