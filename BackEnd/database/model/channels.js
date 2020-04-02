@@ -25,6 +25,14 @@ const channelSchema = new mongoose.Schema({
     channelOptions: {
         backgroundURL: {
             type: String
+        },
+        playlist: {
+            type: Array,
+            of: {
+                title: String,
+                by: String,
+                URL: String
+            }
         }
     },
 });
@@ -34,10 +42,10 @@ const autoIncrement = require('mongoose-sequence')(mongoose);
 channelSchema.plugin(autoIncrement, {inc_field: 'channelId'});  // auto-increment
 
 //static methods
-channelSchema.static('findAll', function(callback) {
-    return this.find({ }, callback);
-});
+channelSchema.statics.findAll = function() {
+    return this.find({ })
+};
 
-//channelSchema.index({name: 1});
+channelSchema.index({channelName: 1});
 
 module.exports = mongoose.model('Channel', channelSchema);
