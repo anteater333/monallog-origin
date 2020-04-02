@@ -1,5 +1,9 @@
 <template>
     <div class="monallog-channel">
+        <m-music-player
+            :playlist="chOptions.playlist"
+            :mode="{isRandom: true, isLoop: false}"
+            v-if="turnOnAudio"/>
         <line-area ref="lineArea" />
         <div class="post-line">
             <m-text-bar
@@ -37,7 +41,8 @@
 
 <script>
 import MTextBar from '@/components/MTextBar.vue'
-import LineArea from '@/components/LineArea.vue'
+import LineArea from '@/components/MLineArea.vue'
+import MMusicPlayer from '@/components/MMusicPlayer.vue'
 
 import axios from 'axios'
 import io from 'socket.io-client'
@@ -46,14 +51,16 @@ export default {
     name: 'MonallogChannel',
     components: {
         'line-area': LineArea,
-        'm-text-bar': MTextBar
+        'm-text-bar': MTextBar,
+        'm-music-player': MMusicPlayer
     },
     data () {
         return {
             socket: null,
             line: '',
             hasCursor: false,
-            isSocketOn: false
+            isSocketOn: false,
+            chOptions: Object
         }
     },
     created () {
@@ -67,8 +74,6 @@ export default {
                 msg: 'socketio 서버 연결됨.',
                 timeout: 3000
             })
-
-            console.log(this.$route.params.chId)
 
             this.socket.emit('join', { channel: this.$route.params.chId })
 
@@ -100,10 +105,12 @@ export default {
         axios.get(requestURL)
             .then(function (response) {
                 console.log(response) // 나중에 지워!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                const bgUrl = response.data.channelOptions.backgroundURL
+
                 next(vm => { // channel view에 정상적으로 접근
+                    vm.chOptions = response.data.channelOptions
+
                     vm.$store.dispatch('turnOnBg')
-                    vm.$store.dispatch('updateBgImg', { url: bgUrl })
+                    vm.$store.dispatch('updateBgImg', { url: vm.chOptions.backgroundURL })
                 })
             })
             .catch(function (error) {
@@ -134,6 +141,9 @@ export default {
         },
         hasText: function () {
             return this.lineCount !== 0
+        },
+        turnOnAudio: function () {
+            return (this.chOptions.playlist !== undefined)
         }
     },
     methods: {

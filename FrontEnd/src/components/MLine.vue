@@ -37,7 +37,7 @@ export default {
         /* 개별 bind */
         mode: Number
     },
-    data: function () {
+    data () {
         return {
             height: null
         }
