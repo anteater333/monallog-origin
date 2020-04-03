@@ -20,54 +20,47 @@ export default {
     },
     data () {
         return {
-            index: 0,
-            playingOrder: Array
+            index: 0
         }
     },
     computed: {
+        playingOrder: function () {
+            let order = [...Array(this.playlist.length).keys()]
+            if (this.mode.isRandom) {
+                order = shuffle(order)
+            }
+            return order
+        },
         nowPlaying: function () {
-            const target = (this.playingOrder !== undefined) ? this.playingOrder[this.index] : this.index
-            return this.playlist[target].URL
+            const URL = (this.playingOrder !== undefined) ? this.playlist[this.playingOrder[this.index]] : ''
+            return URL
         },
         hasMusic: function () {
-            if (!this.playlist) {
+            if (this.playlist.length === 0) {
                 return false
             }
             return true
         }
     },
     created () {
-        this.playingOrder = [...Array(this.playlist.length).keys()]
-        if (this.mode.isRandom) {
-            this.shuffle()
-        }
+
     },
     methods: {
         nextTrack: function () {
             const ctrl = this.$refs.audioCtrl
 
-            this.index += 1
-
-            if (this.index >= this.playlist.length) {
-                this.index = this.index % this.playlist.length
-                if (!this.mode.isLoop) {
-                    this.shuffle()
-                    ctrl.load()
-                    return ctrl.pause()
-                }
-            }
-
+            this.index = (this.index + 1) % this.playlist.length
             ctrl.load()
             ctrl.play()
-        },
-        shuffle: function () {
-            this.playingOrder = this.playingOrder
-                .map(a => [Math.random(), a])
-                .sort((a, b) => a[0] - b[0])
-                .map(a => a[1])
         }
     }
 }
+
+const shuffle = arr => arr
+    .map(a => [Math.random(), a])
+    .sort((a, b) => a[0] - b[0])
+    .map(a => a[1])
+
 </script>
 
 <style scoped>
