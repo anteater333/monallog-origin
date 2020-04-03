@@ -26,11 +26,11 @@ export default {
     },
     computed: {
         nowPlaying: function () {
-            const target = (this.playingOrder !== undefined) ? this.playingOrder[this.index] : this.index
-            return this.playlist[target].URL
+            const URL = (this.playingOrder === undefined || this.playingOrder.length === 0) ? '' : this.playlist[this.playingOrder[this.index]].URL
+            return URL
         },
         hasMusic: function () {
-            if (!this.playlist) {
+            if (this.playlist.length === 0) {
                 return false
             }
             return true

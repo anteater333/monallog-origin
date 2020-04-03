@@ -143,7 +143,7 @@ export default {
             return this.lineCount !== 0
         },
         turnOnAudio: function () {
-            return (this.chOptions.playlist !== undefined)
+            return !(this.chOptions.playlist === undefined || this.chOptions.playlist.length === 0)
         }
     },
     methods: {
