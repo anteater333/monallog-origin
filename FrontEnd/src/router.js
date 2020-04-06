@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import NProgress from 'nprogress'
+
+import '@/assets/css/nprogress.css'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [
@@ -39,3 +42,21 @@ export default new Router({
     // }
     ]
 })
+
+router.beforeEach((to, from, next) => {
+    if (to.name) {
+        NProgress.start()
+    }
+    next()
+})
+
+router.afterEach((to, from) => {
+    NProgress.done()
+})
+
+router.onError((error) => {
+    NProgress.done()
+    alert(`예상치 못한 문제가 발생했습니다.\nanteater333@github로 문의주세요.\n${error}`)
+})
+
+export default router
