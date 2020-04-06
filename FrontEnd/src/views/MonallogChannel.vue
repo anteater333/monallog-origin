@@ -116,7 +116,7 @@ export default {
             .catch(function (error) {
                 if (error.response && error.response.status === 404) next('404') // 해당 channel 없음
                 else { // 그 외의 오류처리
-                    alert(`예상치 못한 문제가 발생했습니다.\nanteater333@github로 문의주세요.\n${error}`)
+                    next(error)
                 }
             })
     },
