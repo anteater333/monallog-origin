@@ -46,6 +46,11 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
     if (to.name) {
         NProgress.start()
+
+        NProgress.configure({
+            showSpinner: false,
+            parent: 'header.header'
+        })
     }
     next()
 })
