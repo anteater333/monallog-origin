@@ -1,5 +1,5 @@
 <template>
-    <audio autoplay controls
+    <audio autoplay
         ref="audioCtrl"
         v-if="hasMusic"
         @ended="nextTrack()">
