@@ -3,7 +3,8 @@
         <m-music-player
             :playlist="chOptions.playlist"
             :mode="{isRandom: true, isLoop: false}"
-            v-if="turnOnAudio"/>
+            v-if="turnOnAudio"
+            @music-start="showMusicInfo"/>
         <line-area ref="lineArea" />
         <div class="post-line">
             <m-text-bar
@@ -160,6 +161,10 @@ export default {
                 alert('채팅 서버가 연결되지 않았습니다.\n anteater333@github 로 문의해 주세요.')
             }
             this.line = ''
+        },
+        showMusicInfo: function (music) {
+            const str = `${music.title} - ${music.by}`
+            this.$refs.lineArea.enqueue(str)
         }
     }
 }
