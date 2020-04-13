@@ -6,7 +6,12 @@ const port = 8081;
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const logger = require('./logger');
 const database = require('./database');
+
+/** Greetings! ****************************************/
+logger.info('monallog back-end server starts running.')
+/******************************************************/
 
 // set middlewares
 app.use(bodyParser.json());
@@ -24,8 +29,8 @@ database.connect();
 require('./socket')(server);
 
 server.listen(port, () => {
-    console.log(`Example app listening on ${port} port!`)
-    
+    logger.info(`listening on ${port} port!`)
+
     tester()
 });
 
@@ -90,18 +95,18 @@ const tester = () => {
     //     console.error(err);
     // });
 
-    database.models.Channels.findAll()
-    .then(docs => {
-        console.log('channels-------------');
-        if (docs.length === 0) console.log("no channels here yet");
-        else {
-            docs.forEach((doc, idx) => {
-                console.log(idx + " :: "+ doc);
-            });
-        }
-        console.log('------------------');
-    })
-    .catch(err => {
-        console.error(err);
-    });
+    // database.models.Channels.findAll()
+    // .then(docs => {
+    //     console.log('channels-------------');
+    //     if (docs.length === 0) console.log("no channels here yet");
+    //     else {
+    //         docs.forEach((doc, idx) => {
+    //             console.log(idx + " :: "+ doc);
+    //         });
+    //     }
+    //     console.log('------------------');
+    // })
+    // .catch(err => {
+    //     console.error(err);
+    // });
 }

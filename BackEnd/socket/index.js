@@ -1,11 +1,15 @@
+const logger = require('../logger')
+
 let clientNum = 0;
 
 module.exports = (server) => {
+    logger.info('setting socket.io services.');
+    
     const io = require('socket.io')(server);
 
     io.on('connection', (socket) => {
         clientNum++;
-        console.log('socket connected: ' + socket.id + ` (#${clientNum})`);
+        logger.info('socket connected: ' + socket.id + ` (#${clientNum})`);
         
         socket.emit('news', {
             msg: `Hello, client #${clientNum}`,
@@ -71,10 +75,8 @@ module.exports = (server) => {
          * on disconnect
         */
         socket.on('disconnect', () => {
-            console.log('socket disconnected: ' + socket.id);
+            logger.info('socket disconnected: ' + socket.id);
             clientNum--;
         })
     });
-
-    console.log('socket.io 이벤트 리스너 등록.\n');
 };

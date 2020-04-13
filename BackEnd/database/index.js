@@ -2,9 +2,13 @@ const mongoose = require('mongoose');
 
 const models = require('./model');
 
+const logger = require('../logger');
+
 let database = {};
 
 database.connect = () => {
+    logger.info('setting database connection.');
+
     mongoose.Promise = global.Promise;
     
     mongoose.set('useNewUrlParser', true);
@@ -17,17 +21,15 @@ database.connect = () => {
 
     // 이벤트별 callback 설정
     db.on('open', () => {
-        console.log('database opened');
+        logger.info('database opened');
         
     });
     db.on('disconnected', () => {
-        console.log('database disconnected');
+        logger.info('database disconnected');
     });
     db.on('error', (err) =>{
-        console.log(err);
+        logger.error(err);
     });
-
-    console.log('database 연결 및 이벤트 리스너 등록.\n');
 }
 
 database.models = models;
