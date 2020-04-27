@@ -3,7 +3,8 @@
         <m-music-player
             :playlist="chOptions.playlist"
             :mode="{isRandom: true, isLoop: false}"
-            v-if="turnOnAudio"/>
+            v-if="turnOnAudio"
+            @music-start="showMusicInfo"/>
         <line-area ref="lineArea" />
         <div class="post-line">
             <m-text-bar
@@ -116,7 +117,7 @@ export default {
             .catch(function (error) {
                 if (error.response && error.response.status === 404) next('404') // 해당 channel 없음
                 else { // 그 외의 오류처리
-                    alert(`예상치 못한 문제가 발생했습니다.\nanteater333@github로 문의주세요.\n${error}`)
+                    next(error)
                 }
             })
     },
@@ -143,7 +144,7 @@ export default {
             return this.lineCount !== 0
         },
         turnOnAudio: function () {
-            return (this.chOptions.playlist !== undefined)
+            return !(this.chOptions.playlist === undefined || this.chOptions.playlist.length === 0)
         }
     },
     methods: {
@@ -160,6 +161,10 @@ export default {
                 alert('채팅 서버가 연결되지 않았습니다.\n anteater333@github 로 문의해 주세요.')
             }
             this.line = ''
+        },
+        showMusicInfo: function (music) {
+            const str = `${music.title} - ${music.by}`
+            this.$refs.lineArea.enqueue(str)
         }
     }
 }

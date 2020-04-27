@@ -1,9 +1,10 @@
 <template>
-    <audio autoplay controls
+    <audio autoplay
         ref="audioCtrl"
         v-if="hasMusic"
+        @play="emitMusicInfo()"
         @ended="nextTrack()">
-        <source :src="nowPlaying"
+        <source :src="nowPlaying.URL"
         type="audio/mpeg">
     </audio>
 </template>
@@ -26,11 +27,16 @@ export default {
     },
     computed: {
         nowPlaying: function () {
-            const target = (this.playingOrder !== undefined) ? this.playingOrder[this.index] : this.index
-            return this.playlist[target].URL
+            let music
+            if (this.playingOrder === undefined || this.playingOrder.length === 0) {
+                music = { URL: '', title: '', by: '' }
+            } else {
+                music = this.playlist[this.playingOrder[this.index]]
+            }
+            return music
         },
         hasMusic: function () {
-            if (!this.playlist) {
+            if (this.playlist.length === 0) {
                 return false
             }
             return true
@@ -59,6 +65,15 @@ export default {
 
             ctrl.load()
             ctrl.play()
+        },
+        emitMusicInfo: function () {
+            this.$emit('music-start', this.nowPlaying)
+        },
+        pause: function () {
+            this.$refs.audioCtrl.pause()
+        },
+        play: function () {
+            this.$refs.audioCtrl.play()
         },
         shuffle: function () {
             this.playingOrder = this.playingOrder
