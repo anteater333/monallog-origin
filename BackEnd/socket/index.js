@@ -1,15 +1,26 @@
+const logger = require('../logger')
+
 let clientNum = 0;
 
+let emptyNums = []
+
 module.exports = (server) => {
+    logger.info('setting socket.io services.');
+    
     const io = require('socket.io')(server);
 
     io.on('connection', (socket) => {
-        clientNum++;
-        console.log('socket connected: ' + socket.id + ` (#${clientNum})`);
+        if (emptyNums.length !== 0)
+            socket.clientNum = emptyNums.shift()
+        else {
+            socket.clientNum = clientNum
+            clientNum++;
+        }
+        logger.info(`socket connected:: ${socket.id} (#${socket.clientNum})`);
         
         socket.emit('news', {
-            msg: `Hello, client #${clientNum}`,
-            number: clientNum,
+            msg: `Hello, client #${socket.clientNum}`,
+            number: socket.clientNum,
         });
 
         /**
@@ -57,6 +68,7 @@ module.exports = (server) => {
          * }
          */
         socket.on('line', (data) => {
+            logger.info(`line:: "${data.line}" by ${data.author}(#${socket.clientNum}) @${data.channel} (${socket.request.connection.remoteAddress})`)
             socket.to(data.channel).emit('line', { // broadcast
                 line: data.line,
                 author: data.author
@@ -71,10 +83,8 @@ module.exports = (server) => {
          * on disconnect
         */
         socket.on('disconnect', () => {
-            console.log('socket disconnected: ' + socket.id);
-            clientNum--;
+            logger.info(`socket disconnected:: ${socket.id} (#${socket.clientNum})`);
+            emptyNums.push(socket.clientNum)
         })
     });
-
-    console.log('socket.io 이벤트 리스너 등록.\n');
 };
