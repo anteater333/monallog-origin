@@ -31,13 +31,16 @@ require('./socket')(server);
 server.listen(port, () => {
     logger.info(`listening on ${port} port!`)
 
-    tester()
+    setTimeout(() => {
+        run();  // Run mocha unit test.
+        myTester();
+    }, 5000);
 });
 
 module.exports = app;
 
 
-const tester = () => {
+const myTester = () => {
     // let testData1 = new database.models.Channels({
     //     channelName: 'test',
     //     channelOptions: {
