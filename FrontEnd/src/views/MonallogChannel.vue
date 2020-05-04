@@ -1,11 +1,12 @@
 <template>
     <div class="monallog-channel">
+        <m-line-area
+            ref="lineArea" />
         <m-music-player
             :playlist="chOptions.playlist"
             :mode="{isRandom: true, isLoop: false}"
             v-if="turnOnAudio"
             @music-start="showMusicInfo"/>
-        <line-area ref="lineArea" />
         <div class="post-line">
             <m-text-bar
                 class="line-text"
@@ -42,7 +43,7 @@
 
 <script>
 import MTextBar from '@/components/MTextBar.vue'
-import LineArea from '@/components/MLineArea.vue'
+import MLineArea from '@/components/MLineArea.vue'
 import MMusicPlayer from '@/components/MMusicPlayer.vue'
 
 import axios from 'axios'
@@ -51,7 +52,7 @@ import io from 'socket.io-client'
 export default {
     name: 'MonallogChannel',
     components: {
-        'line-area': LineArea,
+        'm-line-area': MLineArea,
         'm-text-bar': MTextBar,
         'm-music-player': MMusicPlayer
     },
@@ -186,13 +187,12 @@ export default {
     flex: 1;
 }
 
-.line-area .channel-notice {
+.music-player {
     position: absolute;
     z-index: 10;
-}
 
-.line-area .m-line {
-    z-index: 5;
+    bottom: 50px;
+    right: 0;
 }
 
 .post-line {

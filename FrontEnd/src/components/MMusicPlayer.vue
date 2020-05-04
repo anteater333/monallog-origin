@@ -1,12 +1,24 @@
 <template>
-    <audio autoplay
-        ref="audioCtrl"
-        v-if="hasMusic"
-        @play="emitMusicInfo()"
-        @ended="nextTrack()">
-        <source :src="nowPlaying.URL"
-        type="audio/mpeg">
-    </audio>
+    <div class="music-player">
+        <audio autoplay
+            ref="audioCtrl"
+            v-if="hasMusic"
+            @play="emitMusicInfo()"
+            @ended="nextTrack()">
+            <source :src="nowPlaying.URL"
+            type="audio/mpeg">
+        </audio>
+        <span v-if="!paused"
+            class="music-control-note music-pause-button"
+            @click="pause()">
+            ♪
+        </span>
+        <span v-else
+            class="music-control-note music-play-button"
+            @click="play()">
+            ♪
+        </span>
+    </div>
 </template>
 
 <script>
@@ -22,7 +34,8 @@ export default {
     data () {
         return {
             index: 0,
-            playingOrder: Array
+            playingOrder: Array,
+            paused: false
         }
     },
     computed: {
@@ -71,9 +84,11 @@ export default {
         },
         pause: function () {
             this.$refs.audioCtrl.pause()
+            this.paused = true
         },
         play: function () {
             this.$refs.audioCtrl.play()
+            this.paused = false
         },
         shuffle: function () {
             this.playingOrder = this.playingOrder
@@ -86,5 +101,24 @@ export default {
 </script>
 
 <style scoped>
+.music-player {
+    width: fit-content;
+    margin: 1%;
+}
 
+.music-control-note {
+    user-select: none;
+
+    font-size: 4rem;
+    font-weight: bolder;
+    cursor: pointer;
+
+    opacity: 0.75;
+}
+
+.music-play-button {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: var(--white);
+    -webkit-text-fill-color: transparent;
+}
 </style>

@@ -168,6 +168,9 @@ const now = () => {
 }
 
 .line-area .channel-notice {
+    position: absolute;
+    z-index: 10;
+
     white-space: nowrap;
 
     background-color: rgba(0, 0, 0, 0.5);
@@ -185,6 +188,10 @@ const now = () => {
 .line-area .channel-notice:hover {
     background-color: transparent;
     opacity: 0.3;
+}
+
+.line-area .m-line {
+    z-index: 5;
 }
 
 .line-area .line-container {
