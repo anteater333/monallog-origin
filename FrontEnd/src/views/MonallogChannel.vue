@@ -189,7 +189,7 @@ export default {
 
 .music-player {
     position: absolute;
-    z-index: 10;
+    z-index: 5;
 
     bottom: 50px;
     right: 0;

@@ -169,7 +169,7 @@ const now = () => {
 
 .line-area .channel-notice {
     position: absolute;
-    z-index: 10;
+    z-index: 15;
 
     white-space: nowrap;
 
@@ -191,7 +191,7 @@ const now = () => {
 }
 
 .line-area .m-line {
-    z-index: 5;
+    z-index: 10;
 }
 
 .line-area .line-container {
