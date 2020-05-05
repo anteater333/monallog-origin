@@ -8,14 +8,10 @@
             <source :src="nowPlaying.URL"
             type="audio/mpeg">
         </audio>
-        <span v-if="!paused"
-            class="music-control-note music-pause-button"
+        <span
+            class="music-control-note"
+            :class="{ paused: isPaused }"
             @click="pause()">
-            ♪
-        </span>
-        <span v-else
-            class="music-control-note music-play-button"
-            @click="play()">
             ♪
         </span>
     </div>
@@ -35,7 +31,7 @@ export default {
         return {
             index: 0,
             playingOrder: Array,
-            paused: false
+            isPaused: false
         }
     },
     computed: {
@@ -83,12 +79,13 @@ export default {
             this.$emit('music-start', this.nowPlaying)
         },
         pause: function () {
-            this.$refs.audioCtrl.pause()
-            this.paused = true
-        },
-        play: function () {
-            this.$refs.audioCtrl.play()
-            this.paused = false
+            if (!this.isPaused) {
+                this.$refs.audioCtrl.pause()
+                this.isPaused = true
+            } else {
+                this.$refs.audioCtrl.play()
+                this.isPaused = false
+            }
         },
         shuffle: function () {
             this.playingOrder = this.playingOrder
@@ -113,12 +110,26 @@ export default {
     font-weight: bolder;
     cursor: pointer;
 
-    opacity: 0.75;
+    opacity: 0.2;
+
+    transition: all 3s ease-in-out;
 }
 
-.music-play-button {
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: var(--white);
-    -webkit-text-fill-color: transparent;
+.music-control-note:hover {
+    opacity: 0.75;
+
+    transition: all .7s ease-in-out;
+}
+
+.music-control-note.paused {
+    opacity: 0;
+
+    transition: all 1s ease-in-out;
+}
+
+.music-control-note.paused:hover {
+    opacity: 0.1;
+
+    transition: all .7s ease-in-out;
 }
 </style>
