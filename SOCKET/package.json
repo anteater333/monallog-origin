@@ -1,0 +1,21 @@
+{
+  "name": "monallog-server",
+  "version": "0.0.0",
+  "description": "monallog's back-end server.",
+  "main": "app.js",
+  "dependencies": {
+    "socket.io": "^2.3.0",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^4.4.2"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.2",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Anteater333",
+  "license": "UNLICENSED"
+}

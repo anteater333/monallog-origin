@@ -1,11 +1,12 @@
 const app = require('express')();
 const server = require('http').createServer(app);
 
-const port = 8081;
-
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const Mocha = require('mocha');
+
+const config = require('./config');
 const logger = require('./logger');
 const database = require('./database');
 
@@ -25,14 +26,10 @@ app.use('/', require('./api'));
 // set database connection
 database.connect();
 
-// set socket.io server
-require('./socket')(server);
-
-server.listen(port, () => {
-    logger.info(`listening on ${port} port!`)
+server.listen(config.PORT, () => {
+    logger.info(`listening on ${config.PORT} port!`)
 
     setTimeout(() => {
-        run();  // Run mocha unit test.
         myTester();
     }, 5000);
 });
