@@ -1,12 +1,20 @@
 <template>
-    <audio autoplay
-        ref="audioCtrl"
-        v-if="hasMusic"
-        @play="emitMusicInfo()"
-        @ended="nextTrack()">
-        <source :src="nowPlaying.URL"
-        type="audio/mpeg">
-    </audio>
+    <div class="music-player">
+        <audio autoplay
+            ref="audioCtrl"
+            v-if="hasMusic"
+            @play="emitMusicInfo()"
+            @ended="nextTrack()">
+            <source :src="nowPlaying.URL"
+            type="audio/mpeg">
+        </audio>
+        <span
+            class="music-control-note"
+            :class="{ paused: isPaused }"
+            @click="pause()">
+            ♪
+        </span>
+    </div>
 </template>
 
 <script>
@@ -22,7 +30,8 @@ export default {
     data () {
         return {
             index: 0,
-            playingOrder: Array
+            playingOrder: Array,
+            isPaused: false
         }
     },
     computed: {
@@ -70,10 +79,13 @@ export default {
             this.$emit('music-start', this.nowPlaying)
         },
         pause: function () {
-            this.$refs.audioCtrl.pause()
-        },
-        play: function () {
-            this.$refs.audioCtrl.play()
+            if (!this.isPaused) {
+                this.$refs.audioCtrl.pause()
+                this.isPaused = true
+            } else {
+                this.$refs.audioCtrl.play()
+                this.isPaused = false
+            }
         },
         shuffle: function () {
             this.playingOrder = this.playingOrder
@@ -86,5 +98,38 @@ export default {
 </script>
 
 <style scoped>
+.music-player {
+    width: fit-content;
+    margin: 1%;
+}
 
+.music-control-note {
+    user-select: none;
+
+    font-size: 4rem;
+    font-weight: bolder;
+    cursor: pointer;
+
+    opacity: 0.2;
+
+    transition: all 3s ease-in-out;
+}
+
+.music-control-note:hover {
+    opacity: 0.75;
+
+    transition: all .7s ease-in-out;
+}
+
+.music-control-note.paused {
+    opacity: 0;
+
+    transition: all 1s ease-in-out;
+}
+
+.music-control-note.paused:hover {
+    opacity: 0.1;
+
+    transition: all .7s ease-in-out;
+}
 </style>
