@@ -22,7 +22,6 @@ database.connect = () => {
     // 이벤트별 callback 설정
     db.on('open', () => {
         logger.info('database opened');
-        
     });
     db.on('disconnected', () => {
         logger.info('database disconnected');

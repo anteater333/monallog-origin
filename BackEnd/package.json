@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "test": "node_modules/.bin/mocha api/channel/channel.spec.js"
+    "test": "node_modules/.bin/mocha ./api/**/*.spec.js --delay --exit"
   },
   "author": "Anteater333",
   "license": "UNLICENSED"
